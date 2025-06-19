@@ -1,0 +1,34 @@
+<div class="card">
+  <table class="w-full">
+    <thead>
+      <tr>
+        <th class="h-12 px-4 text-start font-normal">Nom</th>
+        <th class="h-12 px-4 text-start font-normal">Description</th>
+        <th class="h-12 px-4 text-start font-normal">Forme</th>
+        <th class="h-12 px-4 text-start font-normal">Dosage</th>
+        <th class="h-12 px-4 text-start font-normal">Prix</th>
+        <th class="h-12 px-4 text-start font-normal">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="medicaments.length === 0">
+        <td class="border-y-border h-12 border-y px-4 text-center font-normal" colspan="6">vide</td>
+      </tr>
+      <tr *ngFor="let medicament of medicaments">
+        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ medicament.nom }}</td>
+        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ medicament.description }}</td>
+        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ medicament.forme }}</td>
+        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ medicament.dosage }}</td>
+        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ medicament.prixVente }} ar</td>
+        <td class="border-y-border h-12 border-y px-4 text-start font-normal">
+          <button class="button-primary mr-4" (click)="edit(medicament)">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+          <button class="button-danger" (click)="delete(medicament)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

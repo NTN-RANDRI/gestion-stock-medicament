@@ -1,0 +1,43 @@
+<div class="px-8">
+  <div class="card p-6">
+    <!-- tete -->
+    <div class="border-b-border flex justify-between border-b pb-3">
+      <p class="text-xl font-bold text-nowrap">Liste médicament</p>
+      <button class="button-primary" (click)="add()">Ajouter</button>
+    </div>
+
+    <div class="pt-4"></div>
+    <!-- table -->
+    <div class="custom-scrollbar max-h-[400px] overflow-auto">
+      <table class="w-full">
+        <thead class="bg-muted sticky top-0 z-10">
+          <tr class="*:border-b-border text-left *:border-b *:py-3">
+            <th class="pl-4 font-medium">Nom médicament</th>
+            <th class="font-medium">Quantite</th>
+            <th class="font-medium">Prix d'achat</th>
+            <th class="font-medium">Date de péremption</th>
+            <th class="font-medium">Action</th>
+          </tr>
+        </thead>
+        <tbody
+          class="[&>tr:not(:last-child)>td]:border-b-border [&>tr:not(:last-child)>td]:border-b"
+        >
+          <tr class="text-left *:py-3" *ngFor="let medicament of medicaments">
+            <td>{{ medicament.nomMedicament }}</td>
+            <td>{{ medicament.quantite }}</td>
+            <td>{{ medicament.prixUnitaire }}</td>
+            <td>{{ medicament.datePeremptionMedicament }}</td>
+            <td>
+              <button class="button-primary mr-4" (click)="edit(medicament)">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button class="button-danger" (click)="delete(medicament)">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

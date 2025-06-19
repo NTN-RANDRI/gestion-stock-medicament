@@ -1,0 +1,60 @@
+<style>
+  input.ng-touched.ng-invalid,
+  textarea.ng-touched.ng-invalid {
+    outline: 2px solid var(--destructive);
+  }
+</style>
+
+<div
+  class="absolute top-0 left-0 z-20 flex h-screen w-screen items-center justify-center bg-black/20"
+>
+  <div class="card absolute w-[375px] p-6">
+    <div class="border-b-border border-b pb-2">
+      <p class="text-lg font-semibold">
+        {{ selected === null ? "Ajouter" : "Modifier" }}
+      </p>
+    </div>
+    <div class="pt-4"></div>
+    <form [formGroup]="fournisseurFormData" (submit)="submit($event)">
+      <div class="">
+        <label class="text-lg">Nom</label>
+        <input
+          class="input w-full px-2 py-1"
+          type="text"
+          formControlName="nom"
+        />
+        <p class="text-destructive" *ngIf="isInvalid('nom')">
+          <span *ngIf="hasError('nom', 'required')">Required</span>
+        </p>
+      </div>
+      <div class="pt-4">
+        <label class="text-lg">Contact</label>
+        <textarea
+          class="input w-full px-2 py-1"
+          formControlName="contact"
+        ></textarea>
+        <p class="text-destructive" *ngIf="isInvalid('contact')">
+          <span *ngIf="hasError('contact', 'required')">Required</span>
+        </p>
+      </div>
+      <div class="pt-4">
+        <label class="text-lg">Adresse</label>
+        <input
+          class="input w-full px-2 py-1"
+          type="text"
+          formControlName="adresse"
+        />
+        <p class="text-destructive" *ngIf="isInvalid('adresse')">
+          <span *ngIf="hasError('adresse', 'required')">Required</span>
+        </p>
+      </div>
+      <div class="flex justify-end gap-4 pt-6">
+        <button type="button" class="button-danger" (click)="cancel()">Annuler</button>
+        <button type="submit" class="button-primary">
+          {{ selected === null ? "Ajouter" : "Modifier" }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+

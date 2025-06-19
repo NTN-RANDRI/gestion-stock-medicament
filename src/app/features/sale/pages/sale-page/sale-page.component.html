@@ -1,0 +1,26 @@
+<app-sale-header></app-sale-header>
+<div class="pt-8"></div>
+<app-sale-search (searchEvent)="search($event)"></app-sale-search>
+
+<div class="pt-8"></div>
+
+<div class="grid grid-cols-[1fr_auto] gap-4 px-8">
+  <!-- list-medicament -->
+  <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-3">
+    <app-sale-medicament-card
+      *ngFor="let medicament of saleService.filteredMedicaments()"
+      [medicament]="medicament"
+      (addToCartEvent)="addToCart($event)"
+    ></app-sale-medicament-card>
+  </div>
+  <!-- panier -->
+  <div class="">
+    <app-sale-cart
+      [cart]="saleService.cartItems()"
+      (removeEvent)="removeToCart($event)"
+      (envoiDemandeEvent)="envoiDemande($event)"
+    ></app-sale-cart>
+  </div>
+</div>
+
+<div class="pt-8"></div>

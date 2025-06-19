@@ -1,0 +1,30 @@
+<div class="card">
+  <table class="w-full">
+    <thead>
+      <tr>
+        <th class="h-12 px-4 text-start font-normal">Nom</th>
+        <th class="h-12 px-4 text-start font-normal">Contact</th>
+        <th class="h-12 px-4 text-start font-normal">Adresse</th>
+        <th class="h-12 px-4 text-start font-normal">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="fournisseurs.length === 0">
+        <td class="border-y-border h-12 border-y px-4 text-center font-normal" colspan="6">vide</td>
+      </tr>
+      <tr *ngFor="let fournisseur of fournisseurs">
+        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ fournisseur.nom }}</td>
+        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ fournisseur.contact }}</td>
+        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ fournisseur.adresse }}</td>
+        <td class="border-y-border h-12 border-y px-4 text-start font-normal">
+          <button class="button-primary mr-4" (click)="edit(fournisseur)">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+          <button class="button-danger" (click)="delete(fournisseur)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

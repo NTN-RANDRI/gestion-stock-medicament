@@ -1,0 +1,68 @@
+<style>
+  input.ng-touched.ng-invalid, select.ng-touched.ng-invalid {
+    outline: 2px solid var(--destructive);
+  }
+</style>
+
+<main class="flex h-screen w-screen items-center justify-center">
+  <div class="card w-[320px] p-6">
+    <h1 class="text-2xl font-bold">Créer un compte</h1>
+    <div class="pt-6">
+      <form [formGroup]="registerFormData" (submit)="register($event)">
+        <!-- input nom -->
+        <div class="flex flex-col">
+          <label>Nom</label>
+          <input
+            class="input pl-2 py-1"
+            type="text"
+            formControlName="nom"
+          />
+          <p class="text-destructive" *ngIf="isInvalid('nom')">
+            <span *ngIf="registerFormData.get('nom')?.hasError('required')">Required</span>
+          </p>
+        </div>
+        <!-- input email -->
+        <div class="flex flex-col pt-4">
+          <label>E-mail</label>
+          <input
+            class="input pl-2 py-1"
+            type="text"
+            formControlName="email"
+          />
+          <p class="text-destructive" *ngIf="isInvalid('email')">
+            <span *ngIf="registerFormData.get('email')?.hasError('required')">Required</span>
+            <span *ngIf="registerFormData.get('email')?.hasError('email')">E-mail non valide</span>
+          </p>
+        </div>
+        <!-- input nom -->
+        <div class="flex flex-col pt-4">
+          <label>Role</label>
+          <select  class="input pl-2 py-1" formControlName="role">
+            <option value="" disabled>Selectionner le rôle...</option>
+            <option value="admin">Admin</option>
+          </select>
+          <p class="text-destructive" *ngIf="isInvalid('role')">
+            <span *ngIf="registerFormData.get('role')?.hasError('required')">Required</span>
+          </p>
+        </div>
+        <!-- input mot de passe  -->
+        <div class="flex flex-col pt-4">
+          <label>Mot de passe</label>
+          <input
+            class="input pl-2 py-1"
+            type="text"
+            formControlName="motDePasse"
+          />
+          <p class="text-destructive" *ngIf="isInvalid('motDePasse')">
+            <span *ngIf="registerFormData.get('motDePasse')?.hasError('required')">Required</span>
+          </p>
+        </div>
+
+        <!-- button submit -->
+        <div class="pt-6">
+          <button class="button-primary">Créer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

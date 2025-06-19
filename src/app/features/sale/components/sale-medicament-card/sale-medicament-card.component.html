@@ -1,0 +1,54 @@
+<style>
+  input.ng-touched.ng-invalid {
+    outline: 2px solid var(--destructive);
+  }
+</style>
+
+<div class="card p-4">
+  <!-- tete  -->
+  <div class="flex justify-between">
+    <p class="text-xl font-semibold">{{ medicament.nomMedicament }}</p>
+    <div class="bg-accent border-border rounded-lg border px-2 py-1">
+      <p class="text-accent-foreground">{{ medicament.formeMedicament }}</p>
+    </div>
+  </div>
+  <!-- dosage -->
+  <p>
+    <span class="">Dosage : </span><span>{{ medicament.dosageMedicament }}</span>
+  </p>
+
+  <div class="pt-2"></div>
+
+  <!-- etat stock -->
+  <div class="">
+    <p class="text-muted-foreground text-sm">Etat du stock</p>
+    <div class="h-1 w-full rounded-full bg-gray-300">
+      <div class="bg-primary h-full" style="width: 10%"></div>
+    </div>
+    <p class="text-muted-foreground text-end">{{ medicament.quantite }} {{ medicament.quantite > 1 ? 'restants' : 'restant' }}</p>
+  </div>
+
+  <div class="pt-2"></div>
+
+  <!-- add to cart  -->
+   <form (submit)="addToCart($event)">
+    <div class="flex justify-between gap-4">
+      <div class="">
+        <input
+          class="input w-full max-w-[150px] px-2"
+          type="number"
+          [formControl]="quantite"
+        />
+        <p class="text-destructive" *ngIf="quantite.invalid && quantite.touched">
+          <span *ngIf="quantite.hasError('required')">Required</span>
+          <span *ngIf="quantite.hasError('min')">1 minimum</span>
+          <span *ngIf="quantite.hasError('max')">{{ medicament.quantite }} {{ medicament.quantite > 1 ? 'restants' : 'restant' }}</span>
+        </p>
+      </div>
+      <div class="">
+        <button class="button-primary text-nowrap" type="submit">Ajouter au panier</button>
+      </div>
+    </div>
+   </form>
+
+</div>

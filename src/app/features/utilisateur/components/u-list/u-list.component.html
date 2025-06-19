@@ -1,0 +1,41 @@
+<div class="card">
+  <table class="w-full">
+    <thead>
+      <tr>
+        <th class="h-12 px-4 text-start font-normal">Nom</th>
+        <th class="h-12 px-4 text-start font-normal">E-mail</th>
+        <th class="h-12 px-4 text-start font-normal">Role</th>
+        <th class="h-12 px-4 text-start font-normal">Statut</th>
+        <th class="h-12 px-4 text-start font-normal">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="users.length === 0">
+        <td class="border-y-border h-12 border-y px-4 text-center font-normal" colspan="6">vide</td>
+      </tr>
+      <tr *ngFor="let user of users">
+        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ user.nom }}</td>
+        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ user.email }}</td>
+        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ user.role }}</td>
+        <td class="border-y-border h-12 border-y px-4 text-start font-normal">
+          <span *ngIf="user.etat" class="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800">
+            <i class="fa-solid fa-check-circle mr-1"></i> Approuvée
+          </span>
+          <span *ngIf="!user.etat" class="rounded-full bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-800">
+            <i class="fa-solid fa-clock mr-1"></i> En attente
+          </span>
+        </td>
+        <td class="border-y-border h-12 border-y px-4 text-start font-normal">
+          <ng-content *ngIf="!user.etat">
+            <button class="action-btn bg-green-100 text-green-700 hover:bg-green-200 mr-4 py-0.5 px-2 rounded-lg" title="Approuver">
+              <i class="fa-solid fa-check"></i>
+            </button>
+            <button class="action-btn bg-red-100 text-red-700 hover:bg-red-200 py-0.5 px-2 rounded-lg" title="Rejeter">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+          </ng-content>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

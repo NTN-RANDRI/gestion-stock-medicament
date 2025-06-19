@@ -1,0 +1,49 @@
+<div class="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_auto] gap-2 px-4 text-foreground">
+  <!-- search medicament -->
+  <div class="text-center">
+    <input
+      class="input w-full max-w-[250px] py-0.5 pl-2"
+      type="text"
+      placeholder="nom médicament..."
+      [(ngModel)]="nomMedicament"
+    />
+  </div>
+  <!-- search forme -->
+  <div class="flex justify-center">
+    <div class="relative w-full max-w-[250px]">
+      <app-select-with-search [className]="`input w-full max-w-[250px] py-0.5 pl-2`" [placeholder]="'forme'" [options]="formes" [(ngModel)]="formeMedicament"></app-select-with-search>
+    </div>
+  </div>
+
+  <!-- search dosage -->
+  <div class="text-center">
+    <input
+      class="input w-full max-w-[250px] py-0.5 pl-2"
+      type="text"
+      placeholder="dosage"
+    />
+  </div>
+  <!-- search prix minimum -->
+  <div class="text-center">
+    <input
+      class="input w-full max-w-[250px] py-0.5 pl-2"
+      type="number"
+      placeholder="prix minimum"
+      [(ngModel)]="prixMinMedicament"
+      (blur)="verificationPrixMinMedicament()"
+    />
+  </div>
+  <!-- search prix maximum -->
+  <div class="text-center">
+    <input
+      class="input w-full max-w-[250px] py-0.5 pl-2"
+      type="number"
+      placeholder="prix maximum"
+      [(ngModel)]="prixMaxMedicament"
+      (blur)="verificationPrixMaxMedicament()"
+    />
+  </div>
+  <div class="pr-4">
+    <button class="button-primary" (click)="search()">Rechercher</button>
+  </div>
+</div>

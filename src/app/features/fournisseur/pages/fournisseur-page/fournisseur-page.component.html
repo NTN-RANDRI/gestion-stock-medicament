@@ -1,0 +1,48 @@
+<div class="p-8">
+  <div>
+    <h1 class="text-foreground text-2xl font-medium">Gestion fournisseurs</h1>
+    <p class="text-muted-foreground">Bla bla</p>
+  </div>
+
+  <div class="pt-6">
+    <div class="flex items-center justify-between">
+      <div class="">
+        <input
+          class="input w-[300px] px-2 py-1"
+          type="text"
+          placeholder="Recherche..."
+          [(ngModel)]="fournisseurService.search"
+        />
+      </div>
+      <div class="">
+        <button class="button-success" (click)="selectedFournisseur = null">
+          <i class="fa-solid fa-plus mr-2"></i>Ajouter
+        </button>
+      </div>
+    </div>
+
+    <div class="pt-6">
+      <app-fournisseur-list
+        [fournisseurs]="fournisseurs"
+        (editEvent)="setSelectedFournisseur($event)"
+        (deleteEvent)="setDeleteSelectedFournisseur($event)"
+      ></app-fournisseur-list>
+    </div>
+
+    <div *ngIf="selectedFournisseur !== undefined">
+      <app-fournisseur-form
+        [selected]="selectedFournisseur"
+        (cancelEvent)="selectedFournisseur = undefined"
+        (addEvent)="addFournisseur($event)"
+        (editEvent)="editFournisseur($event)"
+      ></app-fournisseur-form>
+    </div>
+
+    <div *ngIf="deleteSelectedFournisseur !== undefined">
+      <app-delete-modal
+        (cancelEvent)="deleteSelectedFournisseur = undefined"
+        (deleteEvent)="deleteFournisseur()"
+      ></app-delete-modal>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="p-8">
+  <div>
+    <h1 class="text-foreground text-2xl font-medium">Utilisateur</h1>
+    <p class="text-muted-foreground">Bla bla</p>
+  </div>
+
+  <div class="pt-6">
+    <div class="flex gap-4">
+      <input
+        class="input w-[300px] px-2 py-1"
+        type="text"
+        placeholder="Recherche..."
+        [(ngModel)]="userService.search"
+      />
+      <select
+        class="input w-[250px] px-2 py-1"
+        [(ngModel)]="userService.etatSearch"
+      >
+        <option value="tous">Tous</option>
+        <option value="approuve">Approuvée</option>
+        <option value="attente">En attente</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="pt-6">
+    <app-u-list [users]="users"></app-u-list>
+  </div>
+</div>

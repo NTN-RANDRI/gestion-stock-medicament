@@ -1,0 +1,40 @@
+<div
+    class="bg-muted text-muted-foreground border-r-border h-[calc(100vh_-_64px)] w-[275px] border-r"
+  >
+    <nav class="pt-10">
+      <ul class="p-3">
+        <li>
+          <a
+            routerLink="/admin"
+            [className]="` block cursor-pointer rounded-lg px-3 py-2 ${currentUrl === '/admin' ? 'bg-primary text-primary-foreground' : 'hover:bg-accent hover:text-accent-foreground'}`"
+          >
+            <i class="fa-solid fa-border-all mr-2"></i> Tableau de bord
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="medicament"
+            [className]="` block cursor-pointer rounded-lg px-3 py-2 ${currentUrl === '/admin/medicament' ? 'bg-primary text-primary-foreground' : 'hover:bg-accent hover:text-accent-foreground'}`"
+          >
+           <i class="fa-solid fa-pills mr-2"></i> Médicament
+          </a>
+        </li>
+        <li>
+          <a
+          routerLink="fournisseur"
+            [className]="` block cursor-pointer rounded-lg px-3 py-2 ${currentUrl === '/admin/fournisseur' ? 'bg-primary text-primary-foreground' : 'hover:bg-accent hover:text-accent-foreground'}`"
+          >
+            <i class="fa-solid fa-truck mr-2"></i>Fournisseur
+          </a>
+        </li>
+        <li>
+          <a
+          routerLink="utilisateur"
+            [className]="` block cursor-pointer rounded-lg px-3 py-2 ${currentUrl === '/admin/utilisateur' ? 'bg-primary text-primary-foreground' : 'hover:bg-accent hover:text-accent-foreground'}`"
+          >
+            <i class="fa-solid fa-users-line mr-2"></i> Utilisateur
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>

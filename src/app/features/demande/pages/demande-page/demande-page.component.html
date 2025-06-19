@@ -1,0 +1,49 @@
+<div class="pb-6 px-8">
+  <app-demande-search></app-demande-search>
+</div>
+
+<div class="px-8">
+  <div class="card p-6">
+    <!-- tete -->
+    <div class="border-b-border border-b pb-3">
+      <p class="text-xl font-bold text-nowrap">Demande reçu</p>
+    </div>
+
+    <div class="pt-4"></div>
+    <!-- table -->
+    <div class="max-h-[400px] overflow-auto custom-scrollbar">
+      <table class="w-full">
+        <thead class="bg-muted sticky top-0 z-10">
+          <tr class="*:border-b-border text-left *:border-b *:py-4">
+            <th>N° Commande</th>
+            <th>Client</th>
+            <th>Date Réception</th>
+            <th>Quantité</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody
+          class="[&>tr:not(:last-child)>td]:border-b-border [&>tr:not(:last-child)>td]:border-b"
+        >
+          <tr *ngIf="demandeService.demandes().length === 0">
+            <td class="text-center pt-2" colspan="6">vide</td>
+          </tr>
+          <tr class="text-left *:py-3" *ngFor="let demande of demandeService.demandes()">
+            <td>CMD-{{ formatService.toThreeNumbers(demande.id) }}</td>
+            <td>{{ demande.nomClient }}</td>
+            <td>{{ formatService.toDateTime(demande.dateDemande) }}</td>
+            <td>30</td>
+            <td>
+              <span
+                class="rounded-full bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-800"
+                >{{ formatService.toText(demande.statutDemande) }}</span
+              >
+            </td>
+            <td><a class="button-primary" routerLink="{{ demande.id }}">Voir</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

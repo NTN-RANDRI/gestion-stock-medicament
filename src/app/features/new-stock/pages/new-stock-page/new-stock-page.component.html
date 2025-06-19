@@ -1,0 +1,39 @@
+<div class="mb-8 flex items-center justify-between px-8">
+  <div>
+    <h1 class="text-xl font-semibold">Nouvelle Entrée de Stock</h1>
+    <p class="text-muted-foreground">
+      Gérez les nouvelles arrivées de produits
+    </p>
+  </div>
+  <button class="button-primary text-lg" (click)="save()">
+    <i class="fas fa-save pr-1"></i>
+    Enregistrer
+  </button>
+</div>
+
+<app-ns-information-form
+  [fournisseur]="nsService.fournisseur"
+  [motif]="nsService.motif"
+></app-ns-information-form>
+
+<div class="pt-6"></div>
+
+<app-ns-list-medicament
+  [medicaments]="nsService.entreeStock()"
+  (addEvent)="selectedEntreeStock = null"
+  (editEvent)="setSelectedEntreeStock($event)"
+  (deleteEvent)="setDeleteSelected($event)"
+></app-ns-list-medicament>
+
+<div *ngIf="selectedEntreeStock !== undefined">
+  <app-ns-crud-form
+    [selected]="selectedEntreeStock"
+    (addEvent)="addEntreeStock($event)"
+    (editEvent)="editEntreeStock($event)"
+    (cancelEvent)="selectedEntreeStock = undefined"
+  ></app-ns-crud-form>
+</div>
+
+<div *ngIf="deleteSelectedEntreeStock">
+  <app-delete-modal (cancelEvent)="deleteSelectedEntreeStock = undefined" (deleteEvent)="deleteEntreeStock()"></app-delete-modal>
+</div>

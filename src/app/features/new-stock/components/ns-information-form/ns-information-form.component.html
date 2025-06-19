@@ -1,0 +1,28 @@
+<div class="mb-8 px-8">
+  <div class="card p-6">
+    <p class="text-lg font-medium">
+      <i class="fas fa-truck text-primary pr-1"></i> Information
+    </p>
+    <div class="pt-4">
+      <div class="">
+        <label class="block">Fournisseur : {{ fournisseur.value }}</label>
+        <app-select-with-search
+          [className]="'input w-full px-4 py-1'"
+          [placeholder]="'Selectionner le fournisseur'"
+          [options]="fournisseurs"
+          [formControl]="fournisseur"
+        ></app-select-with-search>
+      </div>
+      <div class="pt-4">
+        <label class="block">Motif</label>
+        <textarea
+          class="input w-full px-4 py-1"
+          placeholder="Entrez le motif..."
+          [formControl]="motif"
+        ></textarea>
+      </div>
+    </div>
+  </div>
+
+
+</div>

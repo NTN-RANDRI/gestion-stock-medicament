@@ -1,0 +1,27 @@
+.card {
+  @apply bg-card text-card-foreground rounded-xl border border-border shadow-xl;
+}
+
+.header {
+  @apply w-screen h-[64px] border-b border-b-border flex items-center;
+}
+
+.input {
+  @apply border-border border rounded-sm focus:outline-1 focus:outline-ring shadow-lg placeholder:text-muted-foreground;
+}
+
+.input-error {
+  @apply border-border border rounded-sm outline-2 outline-destructive shadow-lg placeholder:text-muted-foreground;
+}
+
+.button-primary {
+  @apply bg-primary text-primary-foreground rounded-md hover:bg-primary/90 py-1 px-2;
+}
+
+.button-danger {
+  @apply bg-destructive text-destructive-foreground rounded-md hover:bg-destructive/90 py-1 px-2;
+}
+
+.button-success {
+  @apply bg-green text-destructive-foreground rounded-md hover:bg-green/90 py-1 px-2;
+}
