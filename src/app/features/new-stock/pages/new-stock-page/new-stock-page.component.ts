@@ -6,6 +6,7 @@ import { NsCrudFormComponent } from '../../components/ns-crud-form/ns-crud-form.
 import { CommonModule } from '@angular/common';
 import { NsMedicamentModel } from '../../models/ns-medicament.model';
 import { DeleteModalComponent } from '@/app/components/delete-modal/delete-modal.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-new-stock-page',
@@ -21,9 +22,30 @@ export class NewStockPageComponent {
   protected nsService = inject(NewStockService);
 
   protected async save() {
+    if (this.nsService.entreeStock().length === 0 || this.nsService.fournisseur.invalid || this.nsService.motif.invalid) {
+      this.nsService.fournisseur.markAsTouched();
+      this.nsService.motif.markAsTouched();
+
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Médicament encore vide!",
+      });
+
+      return;
+    }
+
     await this.nsService.saveNewStock();
-    alert('save success');
     this.nsService.resetAll();
+
+    this.nsService.fournisseur.reset();
+    this.nsService.motif.reset();
+
+    Swal.fire({
+      title: "Entrée stock effectué avec succès!",
+      icon: "success",
+      draggable: true
+    });
   }
 
   protected setSelectedEntreeStock(data: NsMedicamentModel) {

@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { NsMedicamentModel } from '../models/ns-medicament.model';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { ApiEntreeStockService } from '@/app/core/api/api-entree-stock.service';
 import { NsEntreeStockModel } from '../models/ns-entree-stock.model';
 
@@ -8,8 +8,8 @@ import { NsEntreeStockModel } from '../models/ns-entree-stock.model';
   providedIn: 'root'
 })
 export class NewStockService {
-  public fournisseur = new FormControl('');
-  public motif = new FormControl('');
+  public fournisseur = new FormControl('', Validators.required);
+  public motif = new FormControl('', Validators.required);
   public entreeStock = signal<NsMedicamentModel[]>([]);
 
   private apiEntreeStock = inject(ApiEntreeStockService);

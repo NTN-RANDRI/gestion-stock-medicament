@@ -7,7 +7,7 @@ export function resteMedicamentCalcul(
   cart: SaleCartMedicamentModel[],
 ): SaleMedicamentModel[] {
   return medicaments.map((medicament) => {
-    const medicamentInCart = cart.find((item) => item.id === medicament.id);
+    const medicamentInCart = cart.find((item) => item.nomMedicament === medicament.nomMedicament);
 
     if (medicamentInCart) {
       return {
@@ -61,6 +61,19 @@ export function fileteredMedicamentsProcess(
     fileteredMedicaments = fileteredMedicaments.filter(medicament =>
       Number(medicament.prixVenteMedicament) <= prixMax
     )
+  }
+
+  return fileteredMedicaments;
+}
+
+export function filteredMedicamemtsGlobalProcess(medicaments: SaleMedicamentModel[], searchGlobal: string) {
+  let fileteredMedicaments = medicaments;
+
+  if (searchGlobal.trim() !== '') {
+    fileteredMedicaments = fileteredMedicaments.filter((medicament) =>
+      medicament.nomMedicament.toLowerCase().trim().includes(searchGlobal.toLowerCase().trim()) ||
+      medicament.formeMedicament.toLowerCase().trim().includes(searchGlobal.toLowerCase().trim())
+    );
   }
 
   return fileteredMedicaments;

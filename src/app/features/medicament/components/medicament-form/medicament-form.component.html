@@ -5,8 +5,141 @@
   }
 </style>
 
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+  <div class="card w-full max-w-lg mx-4 overflow-hidden">
+    <!-- En-tête -->
+    <div class="bg-primary text-primary-foreground p-6 flex items-center justify-between">
+      <h3 class="text-xl font-semibold flex items-center gap-3">
+        <i class="fas fa-pills"></i>
+        {{ selected === null ? "Ajouter un médicament" : "Modifier le médicament" }}
+      </h3>
+      <button (click)="cancel()" class="text-primary-foreground hover:text-white">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Formulaire -->
+    <form [formGroup]="medicamentFormData" (submit)="submit($event)" class="p-6">
+      <!-- Nom -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-muted-foreground mb-2">
+          Nom du médicament <span class="text-destructive">*</span>
+        </label>
+        <div class="relative">
+          <input
+            type="text"
+            formControlName="nom"
+            class="w-full input pl-10 pr-4 py-2"
+            placeholder="Paracétamol 500mg"
+            [class.border-destructive]="isInvalid('nom')"
+          />
+          <i class="fas fa-capsules absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"></i>
+        </div>
+        <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('nom')">
+          Ce champ est obligatoire
+        </p>
+      </div>
+
+      <!-- Description -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-muted-foreground mb-2">
+          Description
+        </label>
+        <div class="relative">
+          <textarea
+            formControlName="description"
+            class="w-full input pl-10 pr-4 py-2 min-h-[100px]"
+            placeholder="Description du médicament..."
+          ></textarea>
+          <i class="fas fa-align-left absolute top-3 left-3 text-muted-foreground"></i>
+        </div>
+        <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('description')">
+          Ce champ est obligatoire
+        </p>
+      </div>
+
+      <!-- Forme -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-muted-foreground mb-2">
+          Forme galénique <span class="text-destructive">*</span>
+        </label>
+        <div class="relative">
+          <app-select-with-search
+            [className]="'w-full input pl-10 pr-4 py-2' + (isInvalid('forme') ? ' border-destructive' : '')"
+            [options]="formes"
+            formControlName="forme"
+            placeholder="Sélectionnez une forme..."
+          ></app-select-with-search>
+          <i class="fas fa-shapes absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"></i>
+        </div>
+        <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('forme')">
+          Veuillez sélectionner une forme
+        </p>
+      </div>
+
+      <!-- Dosage -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-muted-foreground mb-2">
+          Dosage <span class="text-destructive">*</span>
+        </label>
+        <div class="relative">
+          <input
+            type="text"
+            formControlName="dosage"
+            class="w-full input pl-10 pr-4 py-2"
+            placeholder="500mg"
+            [class.border-destructive]="isInvalid('dosage')"
+          />
+          <i class="fas fa-flask absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"></i>
+        </div>
+        <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('dosage')">
+          Ce champ est obligatoire
+        </p>
+      </div>
+
+      <!-- Prix -->
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-muted-foreground mb-2">
+          Prix de vente (Ar) <span class="text-destructive">*</span>
+        </label>
+        <div class="relative">
+          <input
+            type="number"
+            formControlName="prixVente"
+            class="w-full input pl-10 pr-4 py-2"
+            placeholder="2500"
+            [class.border-destructive]="isInvalid('prixVente')"
+          />
+          <i class="fas fa-tag absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"></i>
+        </div>
+        <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('prixVente')">
+          Veuillez entrer un prix valide
+        </p>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex justify-end gap-3 pt-4 border-t border-border">
+        <button
+          type="button"
+          (click)="cancel()"
+          class="px-4 py-2 border border-border rounded-md hover:bg-secondary transition-colors"
+        >
+          Annuler
+        </button>
+        <button
+          type="submit"
+          class="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-opacity-90 transition-colors"
+          [disabled]="medicamentFormData.invalid"
+        >
+          {{ selected === null ? "Ajouter" : "Modifier" }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <div
-  class="absolute top-0 left-0 z-20 flex h-screen w-screen items-center justify-center bg-black/20"
+  class="absolute top-0 left-0 z-20 flex h-screen w-screen items-center justify-center bg-black/20 hidden"
 >
   <div class="card absolute w-[375px] p-6">
     <div class="border-b-border border-b pb-2">

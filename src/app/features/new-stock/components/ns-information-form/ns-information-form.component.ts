@@ -18,7 +18,6 @@ export class NsInformationFormComponent implements OnInit, OnDestroy {
   // subscription
   private loadFournisseurSubscription: Subscription | null = null;
 
-
   private apiFournisseurService = inject(ApiFournisseurService);
 
   protected fournisseurs: string[] = [];

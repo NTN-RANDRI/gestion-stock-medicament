@@ -5,7 +5,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiAuthService {
   private BASE_URL: string = 'http://localhost:5006/api';
@@ -20,4 +20,7 @@ export class ApiAuthService {
     return this.http.post(this.BASE_URL + '/auth/register', registerData);
   }
 
+  public updateUtilisateurEtat(id: number, etat: boolean): Observable<any> {
+    return this.http.put(`${this.BASE_URL}/auth/users/${id}/etat`, { "etat": etat});
+  }
 }

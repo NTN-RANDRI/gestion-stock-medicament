@@ -28,6 +28,25 @@ export class SaleMedicamentCardComponent {
   get medicament(): SaleMedicamentModel {
     return this._medicament;
   }
+  get pourcentageStock(): number {
+    const max = 100;
+    const quantite = this.medicament.quantite;
+
+    if (quantite < max) {
+      return (quantite * 100) / max;
+    }
+    return 100;
+  }
+
+  get couleurBarStock(): string {
+    if (this.pourcentageStock > 75) {
+      return 'bg-green-500'; // stock bon
+    } else if (this.pourcentageStock > 20) {
+      return 'bg-yellow-500'; // stock moyen
+    } else {
+      return 'bg-red-500'; // stock faible
+    }
+  }
 
   @Output() addToCartEvent = new EventEmitter<SaleCartMedicamentModel>();
 
@@ -48,4 +67,5 @@ export class SaleMedicamentCardComponent {
 
     this.addToCartEvent.emit(dataToAdd);
   }
+
 }

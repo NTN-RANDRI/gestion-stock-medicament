@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FournisseurFormComponent } from "../../components/fournisseur-form/fournisseur-form.component";
 import { DeleteModalComponent } from "../../../../components/delete-modal/delete-modal.component";
 import { FormsModule } from '@angular/forms';
+import { Toast } from '@/app/librairie/sweetalert2/toast';
 
 @Component({
   selector: 'app-fournisseur-page',
@@ -27,6 +28,11 @@ export class FournisseurPageComponent implements OnInit, OnDestroy {
   protected addFournisseur(data: FournisseurModel) {
     this.fournisseurService.addFournisseur(data).subscribe({
       next: _ => {
+        Toast.fire({
+          icon: 'success',
+          title: 'Fournisseur enregistrée avec succès'
+        });
+
         this.selectedFournisseur = undefined;
       }
     });
@@ -35,6 +41,11 @@ export class FournisseurPageComponent implements OnInit, OnDestroy {
   protected editFournisseur(data: FournisseurModel) {
     this.fournisseurService.editFournisseur(this.selectedFournisseur?.id as number, data).subscribe({
       next: _ => {
+        Toast.fire({
+          icon: 'success',
+          title: 'Fournisseur modifiée avec succès'
+        });
+
         this.selectedFournisseur = undefined;
       }
     });
@@ -43,6 +54,11 @@ export class FournisseurPageComponent implements OnInit, OnDestroy {
   protected deleteFournisseur() {
     this.fournisseurService.deleteFournisseur(this.deleteSelectedFournisseur?.id as number).subscribe({
       next: _ => {
+        Toast.fire({
+          icon: 'success',
+          title: 'Fournisseur supprimée avec succès'
+        });
+
         this.deleteSelectedFournisseur = undefined;
       }
     });

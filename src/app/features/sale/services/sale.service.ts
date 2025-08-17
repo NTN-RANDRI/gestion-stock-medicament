@@ -5,6 +5,7 @@ import { SaleSearchMedicamentModel } from '../models/sale-search-medicament.mode
 import { SaleCartMedicamentModel } from '../models/sale-cart-medicament.model';
 import {
   fileteredMedicamentsProcess,
+  filteredMedicamemtsGlobalProcess,
   resteMedicamentCalcul,
 } from '../utils/saleServiceFunc';
 import { SaleDemandeModel } from '../models/sale-demande.model';
@@ -20,7 +21,7 @@ export class SaleService {
 
   public loadMedicaments(): void {
     this.apiStockService
-      .getAll()
+      .getAllGroupBy()
       .pipe(
         tap({
           next: (data) => {
@@ -46,20 +47,19 @@ export class SaleService {
     const dataDemande: SaleDemandeModel = {
       nomClient: nomClient,
       statusDemande: 1,
-      lignesDemande: this.cartItems().map(item => ({
+      lignesDemande: this.cartItems().map((item) => ({
         quantite: item.quantite,
-        nomMedicament: item.nomMedicament
-      }))
-    }
+        nomMedicament: item.nomMedicament,
+      })),
+    };
 
     this.apiDemandeService.create(dataDemande).subscribe({
-      error: error => {
+      error: (error) => {
         console.error(error);
-      }
-    })
+      },
+    });
 
     return true;
-
   }
 
   /* medicaments */
@@ -73,14 +73,15 @@ export class SaleService {
   /* cart */
   public cartItems = signal<SaleCartMedicamentModel[]>([]);
   public addToCart(data: SaleCartMedicamentModel) {
+
     const isExiste = this.cartItems().some(
-      (medicament) => medicament.id === data.id,
+      (medicament) => medicament.nomMedicament === data.nomMedicament,
     );
 
     if (isExiste) {
       this.cartItems.update((prevCart) =>
         prevCart.map((medicament) =>
-          medicament.id === data.id
+          medicament.nomMedicament === data.nomMedicament
             ? { ...medicament, quantite: medicament.quantite + data.quantite }
             : medicament,
         ),
@@ -100,11 +101,17 @@ export class SaleService {
   }
   /* search */
   public filteredMedicaments = computed(() => {
-    return fileteredMedicamentsProcess(
+    // return fileteredMedicamentsProcess(
+    //   this.resteMedicaments(),
+    //   this.searchData(),
+    // );
+
+    return filteredMedicamemtsGlobalProcess(
       this.resteMedicaments(),
-      this.searchData(),
+      this.searchGlobal(),
     );
   });
+
   public searchData = signal<SaleSearchMedicamentModel>({
     nomMedicament: '',
     formeMedicament: '',
@@ -112,4 +119,6 @@ export class SaleService {
     prixMinVenteMedicament: null,
     prixMaxVenteMedicament: null,
   });
+
+  public searchGlobal = signal<string>('');
 }

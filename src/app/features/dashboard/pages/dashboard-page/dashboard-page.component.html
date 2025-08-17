@@ -1,0 +1,291 @@
+<main class="flex-1 px-6">
+  <div class="mb-8">
+    <h2 class="text-2xl font-bold">Tableau de bord</h2>
+    <p class="text-muted-foreground">Aperçu général de votre pharmacie</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div class="border-border rounded-lg border bg-white p-6 shadow-sm">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-muted-foreground text-sm">Médicaments en stock</p>
+          <h3 class="mt-1 text-2xl font-bold">{{ totalStock }}</h3>
+        </div>
+        <div class="bg-accent text-accent-foreground rounded-full p-3">
+          <i class="fas fa-pills text-xl"></i>
+        </div>
+      </div>
+      <!-- <p class="text-sm text-green-600 mt-3">
+              <i class="fas fa-arrow-up"></i> 12% depuis le mois dernier
+          </p> -->
+    </div>
+
+    <div class="border-border rounded-lg border bg-white p-6 shadow-sm">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-muted-foreground text-sm">Médicaments périmés</p>
+          <h3 class="mt-1 text-2xl font-bold">{{ totalPerimes }}</h3>
+        </div>
+        <div class="rounded-full bg-red-100 p-3 text-red-600">
+          <i class="fas fa-exclamation-triangle text-xl"></i>
+        </div>
+      </div>
+      <!-- <p class="text-sm text-red-600 mt-3">
+              <i class="fas fa-arrow-up"></i> {{ totalPerimesHier }} depuis hier
+          </p> -->
+    </div>
+
+    <div class="border-border rounded-lg border bg-white p-6 shadow-sm">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-muted-foreground text-sm">Commandes ce mois</p>
+          <h3 class="mt-1 text-2xl font-bold">{{ totalDemandeMois }}</h3>
+        </div>
+        <div class="rounded-full bg-blue-100 p-3 text-blue-600">
+          <i class="fas fa-shopping-cart text-xl"></i>
+        </div>
+      </div>
+      <!-- <p class="text-sm text-green-600 mt-3">
+              <i class="fas fa-arrow-up"></i> 8% depuis le mois dernier
+          </p> -->
+    </div>
+
+    <!-- <div class="border-border rounded-lg border bg-white p-6 shadow-sm">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-muted-foreground text-sm">Ventes aujourd'hui</p>
+          <h3 class="mt-1 text-2xl font-bold">€1,842</h3>
+        </div>
+        <div class="rounded-full bg-green-100 p-3 text-green-600">
+          <i class="fas fa-euro-sign text-xl"></i>
+        </div>
+      </div>
+      <p class="text-sm text-green-600 mt-3">
+          <i class="fas fa-arrow-up"></i> 15% depuis hier
+      </p>
+    </div> -->
+  </div>
+
+  <!-- Charts and Tables -->
+  <div class="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
+    <!-- Stock Chart -->
+    <div
+      class="border-border rounded-lg border bg-white p-6 shadow-sm lg:col-span-2"
+    >
+      <div class="mb-6 flex items-center justify-between">
+        <h3 class="font-bold">Niveaux de stock</h3>
+        <!-- <select
+          class="bg-secondary border-border rounded-md border px-3 py-1 text-sm"
+        >
+          <option>30 derniers jours</option>
+          <option>7 derniers jours</option>
+          <option>Cette année</option>
+        </select> -->
+      </div>
+      <div class="h-[425px]">
+        <!-- Chart placeholder - would be replaced with actual chart library -->
+        <div class="flex h-full items-end space-x-2">
+          <div
+            *ngFor="let day of last7Days"
+            class="flex flex-1 flex-col justify-end items-center h-full"
+          >
+            <div
+              class="bg-chart-1 w-full rounded-t-md"
+              [style.height.%]="day.total"
+            ></div>
+            <span class="text-muted-foreground mt-1 text-xs">{{ day.label }}</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Expiring Soon -->
+    <div class="border-border rounded-lg border bg-white p-6 shadow-sm">
+      <div class="mb-6 flex items-center justify-between">
+        <h3 class="font-bold">Médicaments bientôt périmés</h3>
+        <span
+          class="bg-accent text-accent-foreground rounded-full px-3 py-1 text-sm font-medium"
+        >
+          {{ stockBientotPerimes.length }} au total
+        </span>
+      </div>
+      <div class="-mr-4 max-h-[500px] space-y-4 overflow-y-auto pr-4">
+        <div
+          class="flex items-center justify-between pr-4"
+          *ngFor="let med of stockBientotPerimes"
+        >
+          <div class="flex items-center space-x-3">
+            <div class="rounded-md bg-red-100 p-2 text-red-600">
+              <i class="fas fa-pills"></i>
+            </div>
+            <div>
+              <p class="font-medium">{{ med.nomMedicament }}</p>
+              <p class="text-muted-foreground text-xs">
+                Expire le {{ med.datePeremption | date: "dd/MM/yyyy" }}
+              </p>
+            </div>
+          </div>
+          <span class="text-sm font-medium">{{ med.quantite }} boîtes</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Activity -->
+  <!-- <div class="border-border rounded-lg border bg-white p-6 shadow-sm">
+    <div class="mb-6 flex items-center justify-between">
+      <h3 class="font-bold">Activité récente</h3>
+      <button class="text-primary text-sm font-medium">Voir tout</button>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="divide-border min-w-full divide-y">
+        <thead class="bg-secondary">
+          <tr>
+            <th
+              scope="col"
+              class="text-muted-foreground px-6 py-3 text-left text-xs font-medium tracking-wider uppercase"
+            >
+              Médicament
+            </th>
+            <th
+              scope="col"
+              class="text-muted-foreground px-6 py-3 text-left text-xs font-medium tracking-wider uppercase"
+            >
+              Type
+            </th>
+            <th
+              scope="col"
+              class="text-muted-foreground px-6 py-3 text-left text-xs font-medium tracking-wider uppercase"
+            >
+              Quantité
+            </th>
+            <th
+              scope="col"
+              class="text-muted-foreground px-6 py-3 text-left text-xs font-medium tracking-wider uppercase"
+            >
+              Date
+            </th>
+            <th
+              scope="col"
+              class="text-muted-foreground px-6 py-3 text-left text-xs font-medium tracking-wider uppercase"
+            >
+              Statut
+            </th>
+          </tr>
+        </thead>
+        <tbody class="divide-border divide-y bg-white">
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <div
+                  class="bg-accent flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md"
+                >
+                  <i class="fas fa-pills text-accent-foreground"></i>
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm font-medium">Paracétamol 500mg</div>
+                  <div class="text-muted-foreground text-sm">PHR12345</div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="text-muted-foreground px-6 py-4 text-sm whitespace-nowrap"
+            >
+              Entrée stock
+            </td>
+            <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+              +50 boîtes
+            </td>
+            <td
+              class="text-muted-foreground px-6 py-4 text-sm whitespace-nowrap"
+            >
+              15 mai 2023
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span
+                class="inline-flex rounded-full bg-green-100 px-2 text-xs leading-5 font-semibold text-green-800"
+              >
+                Complété
+              </span>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <div
+                  class="bg-accent flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md"
+                >
+                  <i class="fas fa-pills text-accent-foreground"></i>
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm font-medium">Ibuprofène 200mg</div>
+                  <div class="text-muted-foreground text-sm">PHR67890</div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="text-muted-foreground px-6 py-4 text-sm whitespace-nowrap"
+            >
+              Vente
+            </td>
+            <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+              -2 boîtes
+            </td>
+            <td
+              class="text-muted-foreground px-6 py-4 text-sm whitespace-nowrap"
+            >
+              14 mai 2023
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span
+                class="inline-flex rounded-full bg-green-100 px-2 text-xs leading-5 font-semibold text-green-800"
+              >
+                Complété
+              </span>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <div
+                  class="bg-accent flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md"
+                >
+                  <i class="fas fa-pills text-accent-foreground"></i>
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm font-medium">Amoxicilline 1g</div>
+                  <div class="text-muted-foreground text-sm">PHR24680</div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="text-muted-foreground px-6 py-4 text-sm whitespace-nowrap"
+            >
+              Commande
+            </td>
+            <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+              +30 boîtes
+            </td>
+            <td
+              class="text-muted-foreground px-6 py-4 text-sm whitespace-nowrap"
+            >
+              13 mai 2023
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span
+                class="inline-flex rounded-full bg-yellow-100 px-2 text-xs leading-5 font-semibold text-yellow-800"
+              >
+                En cours
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div> -->
+</main>

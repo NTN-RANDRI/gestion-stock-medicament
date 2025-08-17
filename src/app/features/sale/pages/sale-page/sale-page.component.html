@@ -1,26 +1,68 @@
-<app-sale-header></app-sale-header>
-<div class="pt-8"></div>
-<app-sale-search (searchEvent)="search($event)"></app-sale-search>
+<main class="">
+  <div class="container mx-auto px-4 py-6">
+    <!-- H E A D E R -->
+    <header class="mb-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <h1 class="text-2xl font-bold text-primary">
+              <span class="bg-primary text-white px-3 py-1 rounded-lg">PHARMA</span>
+              <span class="text-green">STOCK</span>
+          </h1>
 
-<div class="pt-8"></div>
+          <div class="relative w-full max-w-md">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground/50">
+              <i class="fas fa-search"></i>
+            </div>
+            <input
+              type="text"
+              placeholder="Rechercher un médicament..."
+              class="w-full pl-10 pr-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+              [ngModel]="saleService.searchGlobal()"
+              (ngModelChange)="saleService.searchGlobal.set($event)"
+            />
+          </div>
 
-<div class="grid grid-cols-[1fr_auto] gap-4 px-8">
-  <!-- list-medicament -->
-  <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-3">
-    <app-sale-medicament-card
-      *ngFor="let medicament of saleService.filteredMedicaments()"
-      [medicament]="medicament"
-      (addToCartEvent)="addToCart($event)"
-    ></app-sale-medicament-card>
+          <!-- profile -->
+          <app-profile></app-profile>
+
+        </div>
+    </header>
+
+    <!-- panier -->
+    <div class="mb-6">
+      <div class="flex justify-end items-center gap-4">
+        <div class="relative">
+          <button class="flex items-center gap-2 bg-primary/10 hover:bg-primary/20 px-4 py-2 rounded-lg transition" (click)="showPanier = true">
+            <i class="fas fa-shopping-cart text-primary text-xl"></i>
+            <span class="font-medium">Panier</span>
+            <span class="bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{{ saleService.cartItems().length }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-3">
+      <app-sale-medicament-card
+        *ngFor="let medicament of saleService.filteredMedicaments()"
+        [medicament]="medicament"
+        (addToCartEvent)="addToCart($event)"
+      ></app-sale-medicament-card>
+    </div>
   </div>
-  <!-- panier -->
-  <div class="">
-    <app-sale-cart
-      [cart]="saleService.cartItems()"
-      (removeEvent)="removeToCart($event)"
-      (envoiDemandeEvent)="envoiDemande($event)"
-    ></app-sale-cart>
-  </div>
-</div>
+</main>
 
-<div class="pt-8"></div>
+<!-- P A N I E R -->
+<!-- <div *ngIf="showPanier" class="absolute top-0 w-screen h-screen bg-black/30">
+  <div class="relative h-full w-full">
+    <div class="absolute top-12 left-1/2 transform -translate-x-1/2">
+      <app-sale-cart
+        [cart]="saleService.cartItems()"
+        (removeEvent)="removeToCart($event)"
+        (envoiDemandeEvent)="envoiDemande($event)"
+        (closeEvent)="showPanier = false"
+      ></app-sale-cart>
+    </div>
+  </div>
+</div> -->
+

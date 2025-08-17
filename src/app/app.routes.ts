@@ -10,8 +10,18 @@ import { MedicamentPageComponent } from './features/medicament/pages/medicament-
 import { FournisseurPageComponent } from './features/fournisseur/pages/fournisseur-page/fournisseur-page.component';
 import { UtilisateurPageComponent } from './features/utilisateur/pages/utilisateur-page/utilisateur-page.component';
 import { RegisterPageComponent } from './features/register/pages/register-page/register-page.component';
+import { DashboardPageComponent } from './features/dashboard/pages/dashboard-page/dashboard-page.component';
+import { authGuard } from './core/guards/auth.guard';
+import { adminGuard } from './features/admin/guards/admin.guard';
+import { saleGuard } from './features/sale/guards/sale.guard';
+import { gsGuard } from './features/gestion-stock/guards/gs.guard';
+import { UnauthorizedPageComponent } from './core/components/unauthorized-page/unauthorized-page.component';
 
 export const routes: Routes = [
+  {
+    path: 'unauthorized',
+    component: UnauthorizedPageComponent
+  },
   {
     path: 'login',
     component: LoginPageComponent
@@ -22,11 +32,13 @@ export const routes: Routes = [
   },
   {
     path: 'sale',
-    component: SalePageComponent
+    component: SalePageComponent,
+    canActivate: [authGuard, saleGuard],
   },
   {
     path: 'gestion-stock',
     component: GestionStockPageComponent,
+    canActivate: [authGuard, gsGuard],
     children: [
       {
         path: 'demande',
@@ -45,7 +57,12 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminPageComponent,
+    canActivate: [authGuard, adminGuard],
     children: [
+      {
+        path: '',
+        component: DashboardPageComponent
+      },
       {
         path: 'medicament',
         component: MedicamentPageComponent

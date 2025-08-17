@@ -4,10 +4,11 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginService } from '@/app/features/login/services/login.service';
 import { Subscription } from 'rxjs';
 import { LoginModel } from '../../models/login.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css',
   encapsulation: ViewEncapsulation.None
@@ -36,7 +37,7 @@ export class LoginPageComponent implements OnDestroy {
     if (this.loginFormData.valid) {
       this.loginSubscription = this.loginService.login(this.loginFormData.value as LoginModel).subscribe({
         next: _ => {
-          alert('connected...')
+          return;
         },
         error: error => {
           if(error.status === 400) {

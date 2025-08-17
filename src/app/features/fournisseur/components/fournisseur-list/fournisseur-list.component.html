@@ -1,28 +1,65 @@
-<div class="card">
+<div class="custom-scrollbar max-h-[500px] overflow-auto">
   <table class="w-full">
-    <thead>
-      <tr>
-        <th class="h-12 px-4 text-start font-normal">Nom</th>
-        <th class="h-12 px-4 text-start font-normal">Contact</th>
-        <th class="h-12 px-4 text-start font-normal">Adresse</th>
-        <th class="h-12 px-4 text-start font-normal">Action</th>
+    <!-- En-tête du tableau -->
+    <thead class="bg-secondary sticky top-0">
+      <tr class="text-left text-sm font-medium">
+        <th class="p-4">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-building text-primary"></i>
+            <span>Nom</span>
+          </div>
+        </th>
+        <th class="p-4">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-address-book text-primary"></i>
+            <span>Contact</span>
+          </div>
+        </th>
+        <th class="p-4">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-map-marker-alt text-primary"></i>
+            <span>Adresse</span>
+          </div>
+        </th>
+        <th class="p-4 text-right">
+          <div class="flex items-center justify-end gap-2">
+            <i class="fas fa-cog text-primary"></i>
+            <span>Actions</span>
+          </div>
+        </th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngIf="fournisseurs.length === 0">
-        <td class="border-y-border h-12 border-y px-4 text-center font-normal" colspan="6">vide</td>
-      </tr>
-      <tr *ngFor="let fournisseur of fournisseurs">
-        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ fournisseur.nom }}</td>
-        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ fournisseur.contact }}</td>
-        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ fournisseur.adresse }}</td>
-        <td class="border-y-border h-12 border-y px-4 text-start font-normal">
-          <button class="button-primary mr-4" (click)="edit(fournisseur)">
-            <i class="fa-solid fa-pen-to-square"></i>
+
+    <!-- Corps du tableau -->
+    <tbody class="divide-border divide-y">
+      <tr
+        *ngFor="let fournisseur of fournisseurs"
+        class="hover:bg-secondary/50 transition-colors"
+      >
+        <td class="p-4 font-medium">
+          {{ fournisseur.nom }}
+        </td>
+        <td class="p-4 font-medium">
+          {{ fournisseur.contact }}
+        </td>
+        <td class="p-4 font-medium">
+          {{ fournisseur.adresse }}
+        </td>
+        <td class="p-4 text-right">
+          <button
+            class="text-primary hover:bg-primary/10 rounded-md p-2 transition-colors"
+            (click)="edit(fournisseur)"
+            title="Modifier"
+          >
+            <i class="fas fa-edit"></i>
           </button>
-          <button class="button-danger" (click)="delete(fournisseur)">
-            <i class="fa-solid fa-trash"></i>
-          </button>
+          <button
+              class="p-2 text-destructive hover:bg-destructive/10 rounded-md transition-colors"
+              (click)="delete(fournisseur)"
+              title="Supprimer"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
         </td>
       </tr>
     </tbody>

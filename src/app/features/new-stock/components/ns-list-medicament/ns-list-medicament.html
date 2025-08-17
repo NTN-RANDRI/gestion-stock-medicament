@@ -1,4 +1,86 @@
-<div class="px-8">
+<div class="px-4 md:px-8">
+  <div class="card p-6 shadow-sm">
+    <!-- En-tête -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-border pb-4">
+      <div>
+        <h2 class="text-xl font-bold flex items-center gap-2">
+          <i class="fas fa-pills text-primary"></i>
+          Liste des Médicaments
+        </h2>
+        <p class="text-sm text-muted-foreground">{{ medicaments.length }} médicament(s) enregistré(s)</p>
+      </div>
+      <button
+        class="button-primary flex items-center gap-2 px-4 py-2"
+        (click)="add()"
+      >
+        <i class="fas fa-plus"></i>
+        <span>Ajouter</span>
+      </button>
+    </div>
+
+    <!-- Tableau -->
+    <div class="mt-4 overflow-auto custom-scrollbar max-h-[500px]">
+      <table class="w-full">
+        <thead class="bg-secondary sticky top-0">
+          <tr class="text-left text-sm font-medium">
+            <th class="p-4">Médicament</th>
+            <th class="p-4">Quantité</th>
+            <th class="p-4">Prix d'achat</th>
+            <th class="p-4">Date péremption</th>
+            <th class="p-4 text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border">
+          <tr
+            *ngFor="let medicament of medicaments"
+            class="hover:bg-secondary/50 transition-colors"
+          >
+            <td class="p-4 font-medium">
+              {{ medicament.nomMedicament }}
+            </td>
+            <td class="p-4">
+              <span class="px-2 py-1 bg-accent text-accent-foreground rounded-full text-sm">
+                {{ medicament.quantite }}
+              </span>
+            </td>
+            <td class="p-4">
+              {{ medicament.prixUnitaire | number }} Ar
+            </td>
+            <td class="p-4">
+                {{ medicament.datePeremptionMedicament | date:'dd/MM/yyyy' }}
+            </td>
+            <td class="p-4 text-right">
+              <div class="flex justify-end gap-2">
+                <button
+                  class="p-2 text-primary hover:bg-primary/10 rounded-md"
+                  (click)="edit(medicament)"
+                  title="Modifier"
+                >
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button
+                  class="p-2 text-destructive hover:bg-destructive/10 rounded-md"
+                  (click)="delete(medicament)"
+                  title="Supprimer"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="medicaments.length === 0">
+            <td colspan="5" class="p-8 text-center text-muted-foreground">
+              <i class="fas fa-box-open text-3xl mb-2"></i>
+              <p>Aucun médicament enregistré</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="px-8 hidden">
   <div class="card p-6">
     <!-- tete -->
     <div class="border-b-border flex justify-between border-b pb-3">

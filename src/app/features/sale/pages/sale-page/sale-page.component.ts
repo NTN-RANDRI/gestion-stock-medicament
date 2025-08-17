@@ -7,21 +7,23 @@ import { CommonModule } from '@angular/common';
 import { SaleCartComponent } from '../../components/sale-cart/sale-cart.component';
 import { SaleSearchMedicamentModel } from '../../models/sale-search-medicament.model';
 import { SaleCartMedicamentModel } from '../../models/sale-cart-medicament.model';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { ProfileComponent } from "@/app/components/profile/profile.component";
 
 @Component({
   selector: 'app-sale-page',
   imports: [
-    SaleHeaderComponent,
-    SaleSearchComponent,
     SaleMedicamentCardComponent,
-    SaleCartComponent,
     CommonModule,
     ReactiveFormsModule,
-  ],
+    FormsModule,
+    ProfileComponent
+],
   templateUrl: './sale-page.component.html',
   styleUrl: './sale-page.component.css',
 })
+
 export class SalePageComponent {
   protected saleService = inject(SaleService);
 
@@ -32,7 +34,13 @@ export class SalePageComponent {
       this.saleCartComponent.resetForm();
       this.saleService.resetCart();
       this.saleService.loadMedicaments();
-      alert('demande envoyé avec success');
+      this.showPanier = false;
+
+      Swal.fire({
+        title: "Commande effectué avec succès!",
+        icon: "success",
+        draggable: true
+      });
     }
   }
 
@@ -42,6 +50,7 @@ export class SalePageComponent {
   }
 
   // panier
+  protected showPanier = false;
 
   protected addToCart(data: SaleCartMedicamentModel) {
     this.saleService.addToCart(data);

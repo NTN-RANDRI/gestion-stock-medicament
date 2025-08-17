@@ -1,29 +1,158 @@
-<div class="p-8">
-  <div>
-    <h1 class="text-foreground text-2xl font-medium">Utilisateur</h1>
-    <p class="text-muted-foreground">Bla bla</p>
+<div class="px-6">
+  <!-- En-tête -->
+  <div class="mb-8">
+    <h1 class="text-2xl md:text-3xl font-bold text-foreground">Gestion des Utilisateurs</h1>
+    <p class="text-muted-foreground mt-2">Gérez l'inventaire des utilisateurs</p>
   </div>
 
-  <div class="pt-6">
-    <div class="flex gap-4">
-      <input
-        class="input w-[300px] px-2 py-1"
-        type="text"
-        placeholder="Recherche..."
-        [(ngModel)]="userService.search"
-      />
-      <select
-        class="input w-[250px] px-2 py-1"
-        [(ngModel)]="userService.etatSearch"
-      >
-        <option value="tous">Tous</option>
-        <option value="approuve">Approuvée</option>
-        <option value="attente">En attente</option>
-      </select>
+  <!-- Barre d'actions et recherche -->
+  <div class="bg-card border-border mb-6 rounded-lg border p-4 shadow-sm">
+    <div
+      class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
+    >
+      <div class="flex-1">
+        <div class="relative flex-1">
+          <input
+            class="input w-full pl-10 pr-4 py-2"
+            type="text"
+            placeholder="Rechercher un médicament..."
+            [(ngModel)]="userService.search"
+          />
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground">
+            <i class="fas fa-search"></i>
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-2">
+        <select
+          class="border-input focus:ring-ring rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
+          [(ngModel)]="userService.etatSearch"
+        >
+          <option value="tous">Tous</option>
+          <option value="approuve">Approuvée</option>
+          <option value="attente">En attente</option>
+        </select>
+      </div>
     </div>
   </div>
 
-  <div class="pt-6">
-    <app-u-list [users]="users"></app-u-list>
+  <!-- Liste des médicaments -->
+  <div class="card border border-border rounded-lg shadow-sm overflow-hidden">
+    <!-- En-tête -->
+    <div class="bg-secondary p-4 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="bg-primary text-primary-foreground p-2 rounded-lg">
+          <i class="fas fa-users fa-sm"></i>
+        </div>
+        <div>
+          <h2 class="text-lg font-semibold">Inventaire des utilisateurs</h2>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="bg-accent text-accent-foreground px-3 py-1 rounded-full text-sm">
+          {{ users.length }} utilisateur(s)
+        </span>
+      </div>
+    </div>
+
+    <div class="custom-scrollbar max-h-[500px] overflow-auto">
+      <table class="w-full">
+        <!-- En-tête du tableau -->
+        <thead class="bg-secondary sticky top-0">
+          <tr class="text-left text-sm font-medium">
+            <th class="p-4">
+              <div class="flex items-center gap-2">
+                <i class="fas fa-user text-primary"></i>
+                <span>Nom</span>
+              </div>
+            </th>
+            <th class="p-4">
+              <div class="flex items-center gap-2">
+                <i class="fas fa-envelope text-primary"></i>
+                <span>Email</span>
+              </div>
+            </th>
+            <th class="p-4">
+              <div class="flex items-center gap-2">
+                <i class="fas fa-user-tag text-primary"></i>
+                <span>Role</span>
+              </div>
+            </th>
+            <th class="p-4 text-center">
+              <div class="flex items-center justify-start gap-2">
+                <i class="fas fa-circle-notch text-primary"></i>
+                <span>Statut</span>
+              </div>
+            </th>
+            <th class="p-4 text-right">
+              <div class="flex items-center justify-end gap-2">
+                <i class="fas fa-cog text-primary"></i>
+                <span>Action</span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+
+        <!-- Corps du tableau -->
+        <tbody class="divide-border divide-y">
+          <tr
+            *ngFor="let user of users"
+            class="hover:bg-secondary/50 transition-colors"
+          >
+            <td class="p-4 font-medium">
+              {{ user.nom }}
+            </td>
+            <td class="p-4 font-medium">
+              {{ user.email }}
+            </td>
+            <td class="p-4 font-medium">
+              {{ user.role }}
+            </td>
+            <td class="p-4 font-medium">
+              <span
+                *ngIf="user.etat"
+                class="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800"
+              >
+                <i class="fa-solid fa-check-circle mr-1"></i> Approuvée
+              </span>
+              <span
+                *ngIf="!user.etat"
+                class="rounded-full bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-800"
+              >
+                <i class="fa-solid fa-clock mr-1"></i> En attente
+              </span>
+            </td>
+            <td class="p-4 text-right">
+              <ng-content *ngIf="!user.etat">
+                <button
+                  class="action-btn mr-4 rounded-lg bg-green-100 px-2 py-0.5 text-green-700 hover:bg-green-200"
+                  title="Approuver"
+                  (click)="idUtilisateurSelected = user.id"
+                >
+                  <i class="fa-solid fa-check"></i>
+                </button>
+                <button
+                  class="action-btn rounded-lg bg-red-100 px-2 py-0.5 text-red-700 hover:bg-red-200"
+                  title="Rejeter"
+                  (click)="refuser(user.id)"
+                >
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </ng-content>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+</div>
+
+<div *ngIf="idUtilisateurSelected"><
+  <app-confirm-modal
+    title="Confirmation de création de compte"
+    question="Voulez-vous vraiment créer ce compte utilisateur ?"
+    text="Cette action enregistrera définitivement le nouvel utilisateur dans le système."
+    (cancelEvent)="idUtilisateurSelected = undefined"
+    (confirmEvent)="accepter(idUtilisateurSelected || 0)"
+  />
 </div>

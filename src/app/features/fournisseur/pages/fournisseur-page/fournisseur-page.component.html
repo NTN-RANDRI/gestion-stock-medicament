@@ -1,10 +1,91 @@
-<div class="p-8">
-  <div>
-    <h1 class="text-foreground text-2xl font-medium">Gestion fournisseurs</h1>
-    <p class="text-muted-foreground">Bla bla</p>
+<div class="px-6">
+  <!-- En-tête -->
+  <div class="mb-8">
+    <h1 class="text-2xl md:text-3xl font-bold text-foreground">Gestion des Fournisseurs</h1>
+    <p class="text-muted-foreground mt-2">Gérez l'inventaire des fournisseurs</p>
   </div>
 
-  <div class="pt-6">
+  <!-- Barre d'actions et recherche -->
+  <div class="bg-card border-border mb-6 rounded-lg border p-4 shadow-sm">
+    <div
+      class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
+    >
+      <div class="flex-1">
+        <div class="relative flex-1">
+          <input
+            class="input w-full pl-10 pr-4 py-2"
+            type="text"
+            placeholder="Rechercher un médicament..."
+            [(ngModel)]="fournisseurService.search"
+          />
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground">
+            <i class="fas fa-search"></i>
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-2">
+        <button
+        class="button-success flex items-center gap-2 px-4 py-2 whitespace-nowrap"
+        (click)="selectedFournisseur = null"
+      >
+        <i class="fas fa-plus"></i>
+        <span>Nouveau fournisseur</span>
+      </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Liste des médicaments -->
+  <div class="card border border-border rounded-lg shadow-sm overflow-hidden">
+    <!-- En-tête -->
+    <div class="bg-secondary p-4 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="bg-primary text-primary-foreground p-2 rounded-lg">
+          <i class="fas fa-truck fa-sm"></i>
+        </div>
+        <div>
+          <h2 class="text-lg font-semibold">Inventaire des fournisseurs</h2>
+          <p class="text-sm text-muted-foreground">Gestion du stock pharmaceutique</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="bg-accent text-accent-foreground px-3 py-1 rounded-full text-sm">
+          {{ fournisseurs.length }} élément(s)
+        </span>
+        <button
+          class="button-primary flex items-center gap-2 px-4 py-2"
+          (click)="selectedFournisseur = null"
+        >
+          <i class="fas fa-plus"></i>
+          <span class="hidden sm:inline">Nouveau</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Contenu -->
+    <app-fournisseur-list
+        [fournisseurs]="fournisseurs"
+        (editEvent)="setSelectedFournisseur($event)"
+        (deleteEvent)="setDeleteSelectedFournisseur($event)"
+    ></app-fournisseur-list>
+
+    <!-- Message vide -->
+    <div *ngIf="fournisseurs.length === 0" class="p-8 text-center">
+      <div class="bg-secondary/50 p-6 rounded-lg">
+        <i class="fas fa-box-open text-4xl text-muted-foreground mb-3"></i>
+        <p class="text-muted-foreground mb-4">Aucun fournisseurs enregistré</p>
+        <button
+          class="button-primary inline-flex items-center gap-2 px-6 py-2"
+          (click)="selectedFournisseur = null"
+        >
+          <i class="fas fa-plus"></i>
+          Ajouter votre premier fournisseur
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pt-6 hidden">
     <div class="flex items-center justify-between">
       <div class="">
         <input
@@ -29,20 +110,22 @@
       ></app-fournisseur-list>
     </div>
 
-    <div *ngIf="selectedFournisseur !== undefined">
-      <app-fournisseur-form
-        [selected]="selectedFournisseur"
-        (cancelEvent)="selectedFournisseur = undefined"
-        (addEvent)="addFournisseur($event)"
-        (editEvent)="editFournisseur($event)"
-      ></app-fournisseur-form>
-    </div>
 
-    <div *ngIf="deleteSelectedFournisseur !== undefined">
-      <app-delete-modal
-        (cancelEvent)="deleteSelectedFournisseur = undefined"
-        (deleteEvent)="deleteFournisseur()"
-      ></app-delete-modal>
-    </div>
   </div>
+</div>
+
+<div *ngIf="selectedFournisseur !== undefined">
+  <app-fournisseur-form
+    [selected]="selectedFournisseur"
+    (cancelEvent)="selectedFournisseur = undefined"
+    (addEvent)="addFournisseur($event)"
+    (editEvent)="editFournisseur($event)"
+  ></app-fournisseur-form>
+</div>
+
+<div *ngIf="deleteSelectedFournisseur !== undefined">
+  <app-delete-modal
+    (cancelEvent)="deleteSelectedFournisseur = undefined"
+    (deleteEvent)="deleteFournisseur()"
+  ></app-delete-modal>
 </div>

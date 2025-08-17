@@ -1,4 +1,121 @@
-<div class="p-8">
+<div class="px-6">
+  <!-- En-tête -->
+  <div class="mb-8">
+    <h1 class="text-2xl md:text-3xl font-bold text-foreground">Gestion des Médicaments</h1>
+    <p class="text-muted-foreground mt-2">Gérez l'inventaire des médicaments</p>
+  </div>
+
+  <!-- Barre d'actions et recherche -->
+  <div class="card p-4 mb-6">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="flex flex-col md:flex-row gap-3 w-full md:w-auto">
+        <div class="relative flex-1 md:w-64">
+          <input
+            class="input w-full pl-10 pr-4 py-2"
+            type="text"
+            placeholder="Rechercher un médicament..."
+            [(ngModel)]="medicamentService.search"
+          />
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground">
+            <i class="fas fa-search"></i>
+          </div>
+        </div>
+
+        <div class="relative flex-1 md:w-64">
+          <app-select-with-search
+            [className]="'input pl-10 pr-4 py-2 w-full md:w-48'"
+            [placeholder]="'Filtrer par forme'"
+            [options]="formes"
+            [(ngModel)]="medicamentService.formeSearch"
+          ></app-select-with-search>
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground">
+            <i class="fas fa-shapes"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <button
+        class="button-success flex items-center gap-2 px-4 py-2 whitespace-nowrap"
+        (click)="selectedMedicament = null"
+      >
+        <i class="fas fa-plus"></i>
+        <span>Nouveau médicament</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Liste des médicaments -->
+  <div class="card border border-border rounded-lg shadow-sm overflow-hidden">
+    <!-- En-tête -->
+    <div class="bg-secondary p-4 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="bg-primary text-primary-foreground p-2 rounded-lg">
+          <i class="fas fa-pills"></i>
+        </div>
+        <div>
+          <h2 class="text-lg font-semibold">Inventaire des médicaments</h2>
+          <p class="text-sm text-muted-foreground">Gestion du stock pharmaceutique</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="bg-accent text-accent-foreground px-3 py-1 rounded-full text-sm">
+          {{ medicaments.length }} élément(s)
+        </span>
+        <button
+          class="button-primary flex items-center gap-2 px-4 py-2"
+          (click)="selectedMedicament = null"
+        >
+          <i class="fas fa-plus"></i>
+          <span class="hidden sm:inline">Nouveau</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Contenu -->
+    <app-medicament-list
+      [medicaments]="medicaments"
+      (editEvent)="setSelectedMedicament($event)"
+      (deleteEvent)="setDeleteSelectedMedicament($event)"
+    ></app-medicament-list>
+
+    <!-- Message vide -->
+    <div *ngIf="medicaments.length === 0" class="p-8 text-center">
+      <div class="bg-secondary/50 p-6 rounded-lg">
+        <i class="fas fa-box-open text-4xl text-muted-foreground mb-3"></i>
+        <p class="text-muted-foreground mb-4">Aucun médicament enregistré</p>
+        <button
+          class="button-primary inline-flex items-center gap-2 px-6 py-2"
+          (click)="selectedMedicament = null"
+        >
+          <i class="fas fa-plus"></i>
+          Ajouter votre premier médicament
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulaire de création/édition -->
+  <div *ngIf="selectedMedicament !== undefined">
+    <app-medicament-form
+      [formes]="formes"
+      [selected]="selectedMedicament"
+      (cancelEvent)="selectedMedicament = undefined"
+      (addEvent)="addMedicament($event)"
+      (editEvent)="editMedicament($event)"
+    ></app-medicament-form>
+  </div>
+
+  <!-- Modal de suppression -->
+  <div *ngIf="deleteSelectedMedicament !== undefined">
+    <app-delete-modal
+      (cancelEvent)="deleteSelectedMedicament = undefined"
+      (deleteEvent)="deleteMedicament()"
+    ></app-delete-modal>
+  </div>
+</div>
+
+<div class="p-8 hidden">
   <div>
     <h1 class="text-foreground text-2xl font-medium">Gestion médicaments</h1>
     <p class="text-muted-foreground">Bla bla</p>

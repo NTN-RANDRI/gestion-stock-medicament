@@ -28,6 +28,7 @@ export class SaleCartComponent {
     return this._cart;
   }
 
+  @Output() closeEvent = new EventEmitter<void>();
   @Output() removeEvent = new EventEmitter<number>();
   @Output() envoiDemandeEvent = new EventEmitter<string>();
 
@@ -48,6 +49,10 @@ export class SaleCartComponent {
 
   protected remove(id: number) {
     this.removeEvent.emit(id);
+  }
+
+  protected close() {
+    this.closeEvent.emit();
   }
 }
 

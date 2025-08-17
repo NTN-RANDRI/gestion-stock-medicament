@@ -1,32 +1,85 @@
-<div class="card">
+<div class="overflow-auto custom-scrollbar max-h-[500px]">
   <table class="w-full">
-    <thead>
-      <tr>
-        <th class="h-12 px-4 text-start font-normal">Nom</th>
-        <th class="h-12 px-4 text-start font-normal">Description</th>
-        <th class="h-12 px-4 text-start font-normal">Forme</th>
-        <th class="h-12 px-4 text-start font-normal">Dosage</th>
-        <th class="h-12 px-4 text-start font-normal">Prix</th>
-        <th class="h-12 px-4 text-start font-normal">Action</th>
+    <!-- En-tête du tableau -->
+    <thead class="bg-secondary sticky top-0">
+      <tr class="text-left text-sm font-medium">
+        <th class="p-4">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-capsules text-primary"></i>
+            <span>Nom</span>
+          </div>
+        </th>
+        <th class="p-4">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-align-left text-primary"></i>
+            <span>Description</span>
+          </div>
+        </th>
+        <th class="p-4">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-shapes text-primary"></i>
+            <span>Forme</span>
+          </div>
+        </th>
+        <th class="p-4">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-flask text-primary"></i>
+            <span>Dosage</span>
+          </div>
+        </th>
+        <th class="p-4">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-tag text-primary"></i>
+            <span>Prix</span>
+          </div>
+        </th>
+        <th class="p-4 text-right">
+          <div class="flex items-center justify-end gap-2">
+            <i class="fas fa-cog text-primary"></i>
+            <span>Actions</span>
+          </div>
+        </th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngIf="medicaments.length === 0">
-        <td class="border-y-border h-12 border-y px-4 text-center font-normal" colspan="6">vide</td>
-      </tr>
-      <tr *ngFor="let medicament of medicaments">
-        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ medicament.nom }}</td>
-        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ medicament.description }}</td>
-        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ medicament.forme }}</td>
-        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ medicament.dosage }}</td>
-        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ medicament.prixVente }} ar</td>
-        <td class="border-y-border h-12 border-y px-4 text-start font-normal">
-          <button class="button-primary mr-4" (click)="edit(medicament)">
-            <i class="fa-solid fa-pen-to-square"></i>
-          </button>
-          <button class="button-danger" (click)="delete(medicament)">
-            <i class="fa-solid fa-trash"></i>
-          </button>
+
+    <!-- Corps du tableau -->
+    <tbody class="divide-y divide-border">
+      <tr *ngFor="let medicament of medicaments"
+          class="hover:bg-secondary/50 transition-colors">
+        <td class="p-4 font-medium">
+          {{ medicament.nom }}
+        </td>
+        <td class="p-4 text-sm text-muted-foreground">
+          {{ medicament.description || '-' }}
+        </td>
+        <td class="p-4">
+          <span class="px-3 py-1 bg-accent/20 text-accent-foreground rounded-full text-xs">
+            {{ medicament.forme }}
+          </span>
+        </td>
+        <td class="p-4">
+          {{ medicament.dosage }}
+        </td>
+        <td class="p-4 font-medium">
+          {{ medicament.prixVente | number }} Ar
+        </td>
+        <td class="p-4 text-right">
+          <div class="flex justify-end gap-2">
+            <button
+              class="p-2 text-primary hover:bg-primary/10 rounded-md transition-colors"
+              (click)="edit(medicament)"
+              title="Modifier"
+            >
+              <i class="fas fa-edit"></i>
+            </button>
+            <button
+              class="p-2 text-destructive hover:bg-destructive/10 rounded-md transition-colors"
+              (click)="delete(medicament)"
+              title="Supprimer"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </td>
       </tr>
     </tbody>

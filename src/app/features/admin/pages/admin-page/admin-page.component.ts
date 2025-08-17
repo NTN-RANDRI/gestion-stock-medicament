@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { AdminHeaderComponent } from "../../components/admin-header/admin-header.component";
-import { AdminNavComponent } from "../../components/admin-nav/admin-nav.component";
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
+import { ProfileComponent } from "@/app/components/profile/profile.component";
 
 @Component({
   selector: 'app-admin-page',
-  imports: [AdminHeaderComponent, AdminNavComponent, RouterOutlet],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, RouterModule, ProfileComponent],
   templateUrl: './admin-page.component.html',
   styleUrl: './admin-page.component.css'
 })

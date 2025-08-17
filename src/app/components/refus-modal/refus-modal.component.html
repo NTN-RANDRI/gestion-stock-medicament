@@ -1,0 +1,45 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+  <div class="card w-full max-w-md overflow-hidden">
+    <!-- En-tête -->
+    <div class="bg-destructive/10 p-6 pb-4 border-b border-destructive/20">
+      <div class="flex items-center gap-3">
+        <div class="bg-destructive text-destructive-foreground p-2 rounded-full">
+          <i class="fas fa-times-circle"></i>
+        </div>
+        <h3 class="text-lg font-semibold">{{ title }}</h3>
+      </div>
+    </div>
+
+    <!-- Contenu -->
+    <div class="p-6">
+      <div class="flex items-start gap-4">
+        <div class="text-destructive mt-0.5">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <div>
+          <p class="font-medium">{{ question }}</p>
+          <p class="text-sm text-muted-foreground mt-1">
+            {{ text }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex justify-end gap-3 pt-6 mt-4 border-t border-border">
+        <button
+          (click)="cancel()"
+          class="px-4 py-2 border border-border rounded-md hover:bg-secondary transition-colors"
+        >
+          Annuler
+        </button>
+        <button
+          (click)="confirm()"
+          class="px-4 py-2 bg-destructive text-destructive-foreground rounded-md hover:bg-destructive/90 transition-colors flex items-center gap-2"
+        >
+          <i class="fas fa-ban"></i>
+          Confirmer le refus
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

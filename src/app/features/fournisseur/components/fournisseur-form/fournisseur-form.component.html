@@ -6,7 +6,119 @@
 </style>
 
 <div
-  class="absolute top-0 left-0 z-20 flex h-screen w-screen items-center justify-center bg-black/20"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+>
+  <div class="card mx-4 w-full max-w-lg overflow-hidden">
+    <!-- En-tête -->
+    <div
+      class="bg-primary text-primary-foreground flex items-center justify-between p-6"
+    >
+      <h3 class="flex items-center gap-3 text-xl font-semibold">
+        <i class="fas fa-pills"></i>
+        {{
+          selected === null
+            ? "Ajouter une fournisseur"
+            : "Modifier la fournisseur"
+        }}
+      </h3>
+      <button
+        (click)="cancel()"
+        class="text-primary-foreground hover:text-white"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Formulaire -->
+    <form
+      [formGroup]="fournisseurFormData"
+      (submit)="submit($event)"
+      class="p-6"
+    >
+      <!-- Nom -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-muted-foreground mb-2">
+          Nom du fournisseur <span class="text-destructive">*</span>
+        </label>
+        <div class="relative">
+          <input
+            type="text"
+            formControlName="nom"
+            class="w-full input pl-10 pr-4 py-2"
+            placeholder="fournisseur..."
+            [class.border-destructive]="isInvalid('nom')"
+          />
+          <i class="fas fa-building absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"></i>
+        </div>
+        <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('nom')">
+          Ce champ est obligatoire
+        </p>
+      </div>
+
+      <!-- Contact -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-muted-foreground mb-2">
+          Contact <span class="text-destructive">*</span>
+        </label>
+        <div class="relative">
+          <input
+            type="text"
+            formControlName="contact"
+            class="w-full input pl-10 pr-4 py-2"
+            placeholder="contact..."
+            [class.border-destructive]="isInvalid('contact')"
+          />
+          <i class="fas fa-address-book absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"></i>
+        </div>
+        <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('contact')">
+          <span *ngIf="hasError('contact', 'required')">Ce champ est obligatoire</span>
+        </p>
+      </div>
+
+      <!-- Adresse -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-muted-foreground mb-2">
+          Adresse <span class="text-destructive">*</span>
+        </label>
+        <div class="relative">
+          <input
+            type="text"
+            formControlName="adresse"
+            class="w-full input pl-10 pr-4 py-2"
+            placeholder="adresse..."
+            [class.border-destructive]="isInvalid('adresse')"
+          />
+          <i class="fas fa-map-marker-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"></i>
+        </div>
+        <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('adresse')">
+          <span *ngIf="hasError('adresse', 'required')">Ce champ est obligatoire</span>
+        </p>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex justify-end gap-3 pt-4 border-t border-border">
+        <button
+          type="button"
+          (click)="cancel()"
+          class="px-4 py-2 border border-border rounded-md hover:bg-secondary transition-colors"
+        >
+          Annuler
+        </button>
+        <button
+          type="submit"
+          class="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-opacity-90 transition-colors"
+          [disabled]="fournisseurFormData.invalid"
+        >
+          {{ selected === null ? "Ajouter" : "Modifier" }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<div
+  class="absolute top-0 left-0 z-20 flex hidden h-screen w-screen items-center justify-center bg-black/20"
 >
   <div class="card absolute w-[375px] p-6">
     <div class="border-b-border border-b pb-2">
@@ -27,6 +139,7 @@
           <span *ngIf="hasError('nom', 'required')">Required</span>
         </p>
       </div>
+
       <div class="pt-4">
         <label class="text-lg">Contact</label>
         <textarea
@@ -37,6 +150,7 @@
           <span *ngIf="hasError('contact', 'required')">Required</span>
         </p>
       </div>
+
       <div class="pt-4">
         <label class="text-lg">Adresse</label>
         <input
@@ -49,7 +163,9 @@
         </p>
       </div>
       <div class="flex justify-end gap-4 pt-6">
-        <button type="button" class="button-danger" (click)="cancel()">Annuler</button>
+        <button type="button" class="button-danger" (click)="cancel()">
+          Annuler
+        </button>
         <button type="submit" class="button-primary">
           {{ selected === null ? "Ajouter" : "Modifier" }}
         </button>
@@ -57,4 +173,3 @@
     </form>
   </div>
 </div>
-

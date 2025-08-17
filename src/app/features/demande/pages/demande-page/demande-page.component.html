@@ -1,49 +1,132 @@
-<div class="pb-6 px-8">
-  <app-demande-search></app-demande-search>
-</div>
+<main class="container mx-auto px-6">
+  <div class="mb-8 flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-bold text-foreground">Liste commandes reçus</h1>
+      <p class="text-sm text-muted-foreground">Gestion des commandes entrants</p>
+    </div>
+  </div>
 
-<div class="px-8">
-  <div class="card p-6">
-    <!-- tete -->
-    <div class="border-b-border border-b pb-3">
-      <p class="text-xl font-bold text-nowrap">Demande reçu</p>
+  <!-- Filtres de recherche -->
+  <div class="bg-card border-border mb-8 rounded-lg border p-5 shadow-sm">
+    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <div class="relative flex-1">
+        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"></i>
+        <input
+          type="text"
+          placeholder="Rechercher une commande..."
+          class="border-input focus:ring-ring w-full rounded-md border pl-10 pr-4 py-2.5 text-sm focus:ring-2 focus:ring-offset-2 focus:outline-none"
+          [ngModel]="demandeService.search()"
+          (ngModelChange)="demandeService.search.set($event)"
+        />
+      </div>
+      <div class="flex gap-3">
+        <div class="relative flex-1">
+          <i class="fas fa-filter absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"></i>
+          <select
+            class="border-input focus:ring-ring w-full rounded-md border pl-10 pr-4 py-2.5 text-sm focus:ring-2 focus:ring-offset-2 focus:outline-none"
+            [ngModel]="demandeService.searchStatus()"
+            (ngModelChange)="demandeService.searchStatus.set($event)"
+          >
+            <option value="tous">Toutes les commandes</option>
+            <option value="EnAttente">En attente</option>
+            <option value="Acceptee">Approuvées</option>
+            <option value="Annulee">Refusées</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tableau des commandes -->
+  <div class="bg-card border-border overflow-hidden rounded-lg border shadow-sm">
+    <!-- En-tête -->
+    <div class="bg-secondary p-4 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="bg-primary text-primary-foreground p-2 rounded-lg">
+          <i class="fas fa-clipboard-list"></i>
+        </div>
+        <div>
+          <h2 class="text-lg font-semibold">Commandes reçues</h2>
+          <p class="text-sm text-muted-foreground">Gestion commande</p>
+        </div>
+      </div>
     </div>
 
-    <div class="pt-4"></div>
-    <!-- table -->
-    <div class="max-h-[400px] overflow-auto custom-scrollbar">
+    <!-- Table -->
+    <div class="custom-scrollbar max-h-[550px] overflow-auto">
       <table class="w-full">
-        <thead class="bg-muted sticky top-0 z-10">
-          <tr class="*:border-b-border text-left *:border-b *:py-4">
-            <th>N° Commande</th>
-            <th>Client</th>
-            <th>Date Réception</th>
-            <th>Quantité</th>
-            <th>Status</th>
-            <th>Action</th>
+        <thead class="bg-secondary sticky top-0 z-10">
+          <tr class="text-left text-sm font-medium">
+            <th class="min-w-[120px] p-4">
+              <i class="fas fa-hashtag mr-2 text-primary"></i>
+              N° Commande
+            </th>
+            <th class="min-w-[180px] p-4">
+              <i class="fas fa-user mr-2 text-primary"></i>
+              Client
+            </th>
+            <th class="min-w-[150px] p-4">
+              <i class="fas fa-calendar-day mr-2 text-primary"></i>
+              Date Réception
+            </th>
+            <th class="min-w-[100px] p-4">
+              <i class="fas fa-boxes mr-2 text-primary"></i>
+              Quantité
+            </th>
+            <th class="min-w-[120px] p-4">
+              <i class="fas fa-info-circle mr-2 text-primary"></i>
+              Statut
+            </th>
+            <th class="min-w-[100px] p-4">
+              <i class="fas fa-cog text-primary"></i>
+              Action</th>
           </tr>
         </thead>
-        <tbody
-          class="[&>tr:not(:last-child)>td]:border-b-border [&>tr:not(:last-child)>td]:border-b"
-        >
-          <tr *ngIf="demandeService.demandes().length === 0">
-            <td class="text-center pt-2" colspan="6">vide</td>
-          </tr>
-          <tr class="text-left *:py-3" *ngFor="let demande of demandeService.demandes()">
-            <td>CMD-{{ formatService.toThreeNumbers(demande.id) }}</td>
-            <td>{{ demande.nomClient }}</td>
-            <td>{{ formatService.toDateTime(demande.dateDemande) }}</td>
-            <td>30</td>
-            <td>
-              <span
-                class="rounded-full bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-800"
-                >{{ formatService.toText(demande.statutDemande) }}</span
-              >
+        <tbody class="divide-y divide-border">
+          <tr *ngIf="demandes.length === 0">
+            <td class="px-6 py-4 text-center text-sm text-muted-foreground" colspan="6">
+              <i class="fas fa-inbox mr-2"></i>
+              Aucune commande trouvée
             </td>
-            <td><a class="button-primary" routerLink="{{ demande.id }}">Voir</a></td>
+          </tr>
+          <tr class="hover:bg-secondary/50 transition-colors" *ngFor="let demande of demandes">
+            <td class="p-4 font-medium">
+              <!-- <i class="fas fa-file-invoice mr-2 text-muted-foreground"></i> -->
+              CMD-{{ formatService.toThreeNumbers(demande.id) }}
+            </td>
+            <td class="p-4 font-medium">
+              <i class="fas fa-user-tie mr-2 text-muted-foreground"></i>
+              {{ demande.nomClient }}
+            </td>
+            <td class="p-4">
+              <i class="fas fa-clock mr-2 text-muted-foreground"></i>
+              {{ formatService.toDateTime(demande.dateDemande) }}
+            </td>
+            <td class="p-4">
+              <i class="fas fa-cubes mr-2 text-muted-foreground"></i>
+              {{ getTotalQuantite(demande) }}
+            </td>
+            <td class="p-4">
+              <span
+                class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
+                [ngClass]="couleurStatut(demande.statutDemande)"
+              >
+                <i class="fas fa-hourglass-half mr-1.5"></i>
+                {{ textStatut(demande.statutDemande) }}
+              </span>
+            </td>
+            <td class="p-4">
+              <a
+                class="button-primary inline-flex items-center rounded-md px-3 py-1.5 text-sm font-medium transition-colors"
+                routerLink="{{ demande.id }}"
+              >
+                <i class="fas fa-eye mr-2"></i>
+                Voir
+              </a>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-</div>
+</main>

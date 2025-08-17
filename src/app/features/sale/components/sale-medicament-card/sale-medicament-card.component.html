@@ -5,50 +5,73 @@
 </style>
 
 <div class="card p-4">
-  <!-- tete  -->
-  <div class="flex justify-between">
-    <p class="text-xl font-semibold">{{ medicament.nomMedicament }}</p>
+  <!-- En-tête -->
+  <div class="flex justify-between items-start">
+    <div>
+      <p class="text-xl font-semibold">{{ medicament.nomMedicament }}</p>
+      <!-- Prix ajouté ici -->
+      <p class="text-primary font-bold text-lg mt-1">
+        {{ medicament.prixVenteMedicament| number }} ar
+      </p>
+    </div>
     <div class="bg-accent border-border rounded-lg border px-2 py-1">
       <p class="text-accent-foreground">{{ medicament.formeMedicament }}</p>
     </div>
   </div>
-  <!-- dosage -->
-  <p>
-    <span class="">Dosage : </span><span>{{ medicament.dosageMedicament }}</span>
+
+  <!-- Dosage -->
+  <p class="mt-2">
+    <span class="text-muted-foreground">Dosage : </span>
+    <span class="font-medium">{{ medicament.dosageMedicament }}</span>
   </p>
 
-  <div class="pt-2"></div>
+  <div class="pt-3"></div>
 
-  <!-- etat stock -->
-  <div class="">
-    <p class="text-muted-foreground text-sm">Etat du stock</p>
-    <div class="h-1 w-full rounded-full bg-gray-300">
-      <div class="bg-primary h-full" style="width: 10%"></div>
+  <!-- État du stock -->
+  <div>
+    <div class="flex justify-between items-center">
+      <p class="text-muted-foreground text-sm">État du stock</p>
+      <p class="text-muted-foreground text-sm">
+        {{ medicament.quantite }} {{ medicament.quantite > 1 ? "unités" : "unité" }} disponible(s)
+      </p>
     </div>
-    <p class="text-muted-foreground text-end">{{ medicament.quantite }} {{ medicament.quantite > 1 ? 'restants' : 'restant' }}</p>
+    <div class="h-2 w-full rounded-full bg-gray-200 mt-1">
+      <div class="h-full rounded-full" [style.width.%]="pourcentageStock" [ngClass]="couleurBarStock"></div>
+    </div>
   </div>
 
-  <div class="pt-2"></div>
+  <div class="pt-4"></div>
 
-  <!-- add to cart  -->
-   <form (submit)="addToCart($event)">
-    <div class="flex justify-between gap-4">
-      <div class="">
+  <!-- Formulaire d'ajout au panier -->
+  <form (submit)="addToCart($event)">
+    <div class="flex justify-between gap-4 items-end">
+      <div class="flex-1">
+        <label class="block text-sm text-muted-foreground mb-1">Quantité</label>
         <input
-          class="input w-full max-w-[150px] px-2"
+          class="w-full max-w-[150px] px-3 py-2 border border-border rounded-md focus:ring-2 focus:ring-primary focus:outline-none"
           type="number"
           [formControl]="quantite"
+          min="1"
+          [max]="medicament.quantite"
         />
-        <p class="text-destructive" *ngIf="quantite.invalid && quantite.touched">
-          <span *ngIf="quantite.hasError('required')">Required</span>
-          <span *ngIf="quantite.hasError('min')">1 minimum</span>
-          <span *ngIf="quantite.hasError('max')">{{ medicament.quantite }} {{ medicament.quantite > 1 ? 'restants' : 'restant' }}</span>
+        <p class="text-destructive text-sm mt-1 h-5" *ngIf="quantite.invalid && quantite.touched">
+          <span *ngIf="quantite.hasError('required')">Champ obligatoire</span>
+          <span *ngIf="quantite.hasError('min')">Minimum 1 unité</span>
+          <span *ngIf="quantite.hasError('max')">
+            Stock insuffisant (max: {{ medicament.quantite }})
+          </span>
         </p>
       </div>
-      <div class="">
-        <button class="button-primary text-nowrap" type="submit">Ajouter au panier</button>
+      <div>
+        <button
+          class="button-primary text-nowrap px-4 py-2.5 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors flex items-center gap-2"
+          type="submit"
+          [disabled]="quantite.invalid"
+        >
+          <i class="fas fa-cart-plus"></i>
+          Ajouter au panier
+        </button>
       </div>
     </div>
-   </form>
-
+  </form>
 </div>

@@ -20,4 +20,14 @@ export class ApiStockService {
         }),
       );
   }
+
+  public getAllGroupBy(): Observable<SaleMedicamentModel[]> {
+    return this.http
+      .get<{ data: SaleMedicamentModel[] }>(this.URL + '/groupBy')
+      .pipe(
+        map((response) => {
+          return response.data;
+        }),
+      );
+  }
 }

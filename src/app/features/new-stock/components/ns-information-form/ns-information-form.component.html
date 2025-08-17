@@ -1,4 +1,71 @@
-<div class="mb-8 px-8">
+<style>
+  textarea.ng-touched.ng-invalid, select.ng-touched.ng-invalid {
+    outline: 2px solid var(--destructive);
+  }
+</style>
+
+<div class="mb-8 px-4 md:px-8">
+  <div class="card p-6 shadow-sm">
+    <!-- En-tête avec icône et titre -->
+    <div class="flex items-center gap-3 pb-4 border-b border-border">
+      <div class="bg-accent text-accent-foreground p-2 rounded-lg">
+        <i class="fas fa-truck text-lg"></i>
+      </div>
+      <h3 class="text-xl font-semibold">Informations d'entrée</h3>
+    </div>
+
+    <!-- Contenu -->
+    <div class="pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Fournisseur -->
+      <div>
+        <label class="label">
+          Fournisseur
+          <span class="text-destructive">*</span>
+        </label>
+        <div class="relative">
+          <app-select-with-search
+            [className]="`w-full input pl-10 pr-4 py-2 ${fournisseur.invalid && (fournisseur.dirty || fournisseur.touched) ? 'input-error' : 'input'}`"
+            [placeholder]="'Sélectionner un fournisseur...'"
+            [options]="fournisseurs"
+            [formControl]="fournisseur"
+          ></app-select-with-search>
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground">
+            <i class="fas fa-building"></i>
+          </div>
+        </div>
+        <p class="mt-1 text-sm text-destructive" *ngIf="fournisseur.invalid && (fournisseur.dirty || fournisseur.touched)">
+          <span *ngIf="fournisseur.invalid && (fournisseur.dirty || fournisseur.touched)">Ce champ est obligatoire</span>
+        </p>
+        <!-- <p *ngIf="fournisseur.value" class="mt-1 text-sm text-green-600">
+          Sélectionné : {{ fournisseur.value }}
+        </p> -->
+      </div>
+
+      <!-- Motif -->
+      <div class="md:col-span-2">
+        <label class="label">
+          Motif d'entrée
+          <span class="text-destructive">*</span>
+        </label>
+        <div class="relative">
+          <textarea
+            class="w-full input pl-10 pr-4 py-2 min-h-[100px]"
+            placeholder="Décrivez le motif d'entrée en stock..."
+            [formControl]="motif"
+          ></textarea>
+          <div class="absolute top-3 left-3 text-muted-foreground">
+            <i class="fas fa-clipboard"></i>
+          </div>
+        </div>
+        <p class="mt-1 text-sm text-destructive" *ngIf="motif.invalid && (motif.dirty || motif.touched)">
+          <span *ngIf="motif.invalid && (motif.dirty || motif.touched)">Ce champ est obligatoire</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="mb-8 px-8">
   <div class="card p-6">
     <p class="text-lg font-medium">
       <i class="fas fa-truck text-primary pr-1"></i> Information
@@ -23,6 +90,4 @@
       </div>
     </div>
   </div>
-
-
-</div>
+</div> -->

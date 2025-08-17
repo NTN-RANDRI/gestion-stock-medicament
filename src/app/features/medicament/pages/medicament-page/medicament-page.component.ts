@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MedicamentFormComponent } from "../../components/medicament-form/medicament-form.component";
 import { DeleteModalComponent } from "../../../../components/delete-modal/delete-modal.component";
 import { FormsModule } from '@angular/forms';
+import { Toast } from '@/app/librairie/sweetalert2/toast';
 
 @Component({
   selector: 'app-medicament-page',
@@ -30,6 +31,11 @@ export class MedicamentPageComponent implements OnInit, OnDestroy {
   protected addMedicament(data: MedicamentModel) {
     this.medicamentService.addMedicament(data).subscribe({
       next: _ => {
+        Toast.fire({
+          icon: 'success',
+          title: 'Médicament enregistrée avec succès'
+        });
+
         this.selectedMedicament = undefined;
       }
     });
@@ -39,6 +45,11 @@ export class MedicamentPageComponent implements OnInit, OnDestroy {
   protected editMedicament(data: MedicamentModel) {
     this.medicamentService.editMedicament(this.selectedMedicament?.id as number, data).subscribe({
       next: _ => {
+        Toast.fire({
+          icon: 'success',
+          title: 'Médicament modifiée avec succès'
+        });
+
         this.selectedMedicament = undefined;
       }
     });
@@ -47,6 +58,11 @@ export class MedicamentPageComponent implements OnInit, OnDestroy {
   protected deleteMedicament() {
     this.medicamentService.deleteMedicament(this.deleteSelectedMedicament?.id as number).subscribe({
       next: _ => {
+        Toast.fire({
+          icon: 'success',
+          title: 'Médicament supprimée avec succès'
+        });
+
         this.deleteSelectedMedicament = undefined;
       }
     });

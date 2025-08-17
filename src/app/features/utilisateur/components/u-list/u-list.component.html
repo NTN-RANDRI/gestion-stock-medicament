@@ -1,37 +1,83 @@
-<div class="card">
+<div class="custom-scrollbar max-h-[500px] overflow-auto">
   <table class="w-full">
-    <thead>
-      <tr>
-        <th class="h-12 px-4 text-start font-normal">Nom</th>
-        <th class="h-12 px-4 text-start font-normal">E-mail</th>
-        <th class="h-12 px-4 text-start font-normal">Role</th>
-        <th class="h-12 px-4 text-start font-normal">Statut</th>
-        <th class="h-12 px-4 text-start font-normal">Action</th>
+    <!-- En-tête du tableau -->
+    <thead class="bg-secondary sticky top-0">
+      <tr class="text-left text-sm font-medium">
+        <th class="p-4">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-user text-primary"></i>
+            <span>Nom</span>
+          </div>
+        </th>
+        <th class="p-4">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-envelope text-primary"></i>
+            <span>Email</span>
+          </div>
+        </th>
+        <th class="p-4">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-user-tag text-primary"></i>
+            <span>Role</span>
+          </div>
+        </th>
+        <th class="p-4 text-center">
+          <div class="flex items-center justify-start gap-2">
+            <i class="fas fa-circle-notch text-primary"></i>
+            <span>Statut</span>
+          </div>
+        </th>
+        <th class="p-4 text-right">
+          <div class="flex items-center justify-end gap-2">
+            <i class="fas fa-cog text-primary"></i>
+            <span>Action</span>
+          </div>
+        </th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngIf="users.length === 0">
-        <td class="border-y-border h-12 border-y px-4 text-center font-normal" colspan="6">vide</td>
-      </tr>
-      <tr *ngFor="let user of users">
-        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ user.nom }}</td>
-        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ user.email }}</td>
-        <td class="border-y-border h-12 border-y px-4 text-start font-normal">{{ user.role }}</td>
-        <td class="border-y-border h-12 border-y px-4 text-start font-normal">
-          <span *ngIf="user.etat" class="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800">
+
+    <!-- Corps du tableau -->
+    <tbody class="divide-border divide-y">
+      <tr
+        *ngFor="let user of users"
+        class="hover:bg-secondary/50 transition-colors"
+      >
+        <td class="p-4 font-medium">
+          {{ user.nom }}
+        </td>
+        <td class="p-4 font-medium">
+          {{ user.email }}
+        </td>
+        <td class="p-4 font-medium">
+          {{ user.role }}
+        </td>
+        <td class="p-4 font-medium">
+          <span
+            *ngIf="user.etat"
+            class="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800"
+          >
             <i class="fa-solid fa-check-circle mr-1"></i> Approuvée
           </span>
-          <span *ngIf="!user.etat" class="rounded-full bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-800">
+          <span
+            *ngIf="!user.etat"
+            class="rounded-full bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-800"
+          >
             <i class="fa-solid fa-clock mr-1"></i> En attente
           </span>
         </td>
-        <td class="border-y-border h-12 border-y px-4 text-start font-normal">
+        <td class="p-4 text-right">
           <ng-content *ngIf="!user.etat">
-            <button class="action-btn bg-green-100 text-green-700 hover:bg-green-200 mr-4 py-0.5 px-2 rounded-lg" title="Approuver">
+            <button
+              class="action-btn mr-4 rounded-lg bg-green-100 px-2 py-0.5 text-green-700 hover:bg-green-200"
+              title="Approuver"
+            >
               <i class="fa-solid fa-check"></i>
             </button>
-            <button class="action-btn bg-red-100 text-red-700 hover:bg-red-200 py-0.5 px-2 rounded-lg" title="Rejeter">
-                <i class="fa-solid fa-xmark"></i>
+            <button
+              class="action-btn rounded-lg bg-red-100 px-2 py-0.5 text-red-700 hover:bg-red-200"
+              title="Rejeter"
+            >
+              <i class="fa-solid fa-xmark"></i>
             </button>
           </ng-content>
         </td>

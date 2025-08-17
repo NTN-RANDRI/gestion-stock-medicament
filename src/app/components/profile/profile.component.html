@@ -1,0 +1,29 @@
+<div class="flex items-center gap-3">
+  <div
+    class="bg-accent text-accent-foreground flex h-10 w-10 items-center justify-center rounded-full font-medium"
+  >
+    JP
+  </div>
+  <span class="hidden font-medium md:inline">{{ tokenService.email }}</span>
+  <button
+    class="text-destructive hover:text-destructive/90 ml-2"
+    title="Déconnexion"
+    (click)="showConfirmModal = true"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+      <polyline points="16 17 21 12 16 7"></polyline>
+      <line x1="21" y1="12" x2="9" y2="12"></line>
+    </svg>
+  </button>
+</div>
+
+<div *ngIf="showConfirmModal">
+  <app-confirm-modal
+    title="Déconnexion"
+    question="Voulez-vous vraiment vous déconnecter ?"
+    text="Vous devrez vous reconnecter pour accéder à votre compte."
+    (cancelEvent)="showConfirmModal = false"
+    (confirmEvent)="logout()"
+  />
+</div>

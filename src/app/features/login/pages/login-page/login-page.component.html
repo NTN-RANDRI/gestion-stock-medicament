@@ -4,8 +4,71 @@
   }
 </style>
 
-<main class="flex h-screen w-screen items-center justify-center">
-  <div class="card w-[320px] p-6">
+<main class="h-screen flex items-center justify-center p-4">
+  <div class="w-full max-w-md">
+    <div class="bg-white shadow-2xl rounded-xl overflow-hidden border border-border/50 backdrop-blur-sm">
+      <div class="p-8">
+        <div class="flex flex-col items-center mb-8">
+          <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+              <i class="fas fa-user-circle text-3xl text-primary"></i>
+          </div>
+          <h1 class="text-2xl font-bold text-center">Bienvenue</h1>
+          <p class="text-muted-foreground mt-2">Connectez-vous pour continuer</p>
+        </div>
+
+        <form [formGroup]="loginFormData" (submit)="login($event)" class="space-y-6">
+          <div class="space-y-2">
+            <label for="email" class="label">Email</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground/50">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <input
+                class="input-login"
+                type="text"
+                formControlName="email"
+              />
+            </div>
+            <p class="text-destructive" *ngIf="isInvalid('email')">
+              <span *ngIf="loginFormData.get('email')?.hasError('required')">Required</span>
+              <span *ngIf="loginFormData.get('email')?.hasError('email')">E-mail non valide</span>
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <label for="motDePasse" class="label">Mot de passe</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground/50">
+                <i class="fas fa-lock"></i>
+              </div>
+              <input
+                class="input-login"
+                type="text"
+                formControlName="motDePasse"
+              />
+            </div>
+            <p class="text-destructive" *ngIf="isInvalid('motDePasse')">
+              <span *ngIf="loginFormData.get('motDePasse')?.hasError('required')">Required</span>
+            </p>
+          </div>
+
+          <div class="" *ngIf="invalidCredentials">
+            <p class="text-destructive">E-mail ou mot de passe incorrect</p>
+          </div>
+
+          <button type="submit" class="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-3 px-4 rounded-xl transition-all duration-200 ease-in-out shadow-md hover:shadow-lg active:scale-[0.98]">
+            Connexion
+          </button>
+        </form>
+
+        <div class="mt-8 text-center text-sm text-muted-foreground">
+          Nouveau ici? <a routerLink="/register" class="font-medium text-primary hover:text-primary/80 transition-colors">Créer un compte</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card w-[320px] p-6 hidden">
     <h1 class="text-2xl font-bold">Se connecter</h1>
     <div class="pt-6">
       <form [formGroup]="loginFormData" (submit)="login($event)">

@@ -36,5 +36,24 @@ export class ApiDemandeService {
     );
   }
 
+  public confirmDemande(id: number): Observable<any> {
+    return this.http.post(`${this.URL}/${id}/confirm`, null).pipe(
+      map((response: any) => {
+        return response.data;
+      })
+    );
+  }
+
+  public refuseDemande(id: number): Observable<any> {
+    return this.http.post(`${this.URL}/${id}/refuse`, null).pipe(
+      map((response: any) => {
+        return response.data;
+      })
+    );
+  }
+
+
+
+
 
 }
