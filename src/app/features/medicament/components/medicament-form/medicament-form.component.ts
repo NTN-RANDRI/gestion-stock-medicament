@@ -3,6 +3,7 @@ import { MedicamentModel } from '../../models/medicament.model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SelectWithSearchComponent } from "../../../../components/select-with-search/select-with-search.component";
+import { formesDefault } from '@/app/core/utils/forme';
 
 @Component({
   selector: 'app-medicament-form',
@@ -11,7 +12,7 @@ import { SelectWithSearchComponent } from "../../../../components/select-with-se
   styleUrl: './medicament-form.component.css'
 })
 export class MedicamentFormComponent {
-  @Input({required: true}) formes!: string[];
+  // @Input({required: true}) formes!: string[];
   private _selected!: MedicamentModel | null;
   protected medicamentFormData!: FormGroup;
   @Input({required: true})
@@ -30,6 +31,10 @@ export class MedicamentFormComponent {
     return this._selected;
   }
 
+  get formes(): string[] {
+    return formesDefault;
+  }
+
   @Output() addEvent = new EventEmitter<MedicamentModel>();
   @Output() editEvent = new EventEmitter<MedicamentModel>();
   @Output() cancelEvent = new EventEmitter<void>();
@@ -41,6 +46,8 @@ export class MedicamentFormComponent {
   protected submit(event: Event) {
     event.preventDefault();
     this.medicamentFormData.markAllAsTouched();
+
+    console.log('ici')
 
     if (this.medicamentFormData.valid) {
       const data = this.medicamentFormData.value as MedicamentModel;

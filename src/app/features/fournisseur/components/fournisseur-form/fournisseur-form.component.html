@@ -51,7 +51,7 @@
           <i class="fas fa-building absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"></i>
         </div>
         <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('nom')">
-          Ce champ est obligatoire
+          Champ requis
         </p>
       </div>
 
@@ -71,7 +71,7 @@
           <i class="fas fa-address-book absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"></i>
         </div>
         <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('contact')">
-          <span *ngIf="hasError('contact', 'required')">Ce champ est obligatoire</span>
+          <span *ngIf="hasError('contact', 'required')">Champ requis</span>
         </p>
       </div>
 
@@ -91,7 +91,7 @@
           <i class="fas fa-map-marker-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"></i>
         </div>
         <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('adresse')">
-          <span *ngIf="hasError('adresse', 'required')">Ce champ est obligatoire</span>
+          <span *ngIf="hasError('adresse', 'required')">Champ requis</span>
         </p>
       </div>
 
@@ -107,7 +107,6 @@
         <button
           type="submit"
           class="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-opacity-90 transition-colors"
-          [disabled]="fournisseurFormData.invalid"
         >
           {{ selected === null ? "Ajouter" : "Modifier" }}
         </button>
@@ -117,59 +116,3 @@
   </div>
 </div>
 
-<div
-  class="absolute top-0 left-0 z-20 flex hidden h-screen w-screen items-center justify-center bg-black/20"
->
-  <div class="card absolute w-[375px] p-6">
-    <div class="border-b-border border-b pb-2">
-      <p class="text-lg font-semibold">
-        {{ selected === null ? "Ajouter" : "Modifier" }}
-      </p>
-    </div>
-    <div class="pt-4"></div>
-    <form [formGroup]="fournisseurFormData" (submit)="submit($event)">
-      <div class="">
-        <label class="text-lg">Nom</label>
-        <input
-          class="input w-full px-2 py-1"
-          type="text"
-          formControlName="nom"
-        />
-        <p class="text-destructive" *ngIf="isInvalid('nom')">
-          <span *ngIf="hasError('nom', 'required')">Required</span>
-        </p>
-      </div>
-
-      <div class="pt-4">
-        <label class="text-lg">Contact</label>
-        <textarea
-          class="input w-full px-2 py-1"
-          formControlName="contact"
-        ></textarea>
-        <p class="text-destructive" *ngIf="isInvalid('contact')">
-          <span *ngIf="hasError('contact', 'required')">Required</span>
-        </p>
-      </div>
-
-      <div class="pt-4">
-        <label class="text-lg">Adresse</label>
-        <input
-          class="input w-full px-2 py-1"
-          type="text"
-          formControlName="adresse"
-        />
-        <p class="text-destructive" *ngIf="isInvalid('adresse')">
-          <span *ngIf="hasError('adresse', 'required')">Required</span>
-        </p>
-      </div>
-      <div class="flex justify-end gap-4 pt-6">
-        <button type="button" class="button-danger" (click)="cancel()">
-          Annuler
-        </button>
-        <button type="submit" class="button-primary">
-          {{ selected === null ? "Ajouter" : "Modifier" }}
-        </button>
-      </div>
-    </form>
-  </div>
-</div>

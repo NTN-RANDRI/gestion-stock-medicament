@@ -39,6 +39,7 @@ export class SaleCartComponent {
 
     if (this.nomClient.invalid) {
       this.nomClient.markAsTouched();
+
       return;
     }
 

@@ -11,6 +11,7 @@ import {
 import { SaleDemandeModel } from '../models/sale-demande.model';
 import { ApiDemandeService } from '@/app/core/api/api-demande.service';
 import { ApiStockService } from '@/app/core/api/api-stock.service';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +41,13 @@ export class SaleService {
   /* demande */
   public envoiDemande(nomClient: string): boolean {
     if (this.cartItems().length === 0) {
-      alert('Demande non envoyé \nPanier encore vide');
+
+      Swal.fire({
+        icon: "error",
+        title: "Erreur",
+        text: "Votre panier est vide !",
+      });
+
       return false;
     }
 

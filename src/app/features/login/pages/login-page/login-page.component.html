@@ -30,7 +30,7 @@
               />
             </div>
             <p class="text-destructive" *ngIf="isInvalid('email')">
-              <span *ngIf="loginFormData.get('email')?.hasError('required')">Required</span>
+              <span *ngIf="loginFormData.get('email')?.hasError('required')">Champ requis</span>
               <span *ngIf="loginFormData.get('email')?.hasError('email')">E-mail non valide</span>
             </p>
           </div>
@@ -43,12 +43,12 @@
               </div>
               <input
                 class="input-login"
-                type="text"
+                type="password"
                 formControlName="motDePasse"
               />
             </div>
             <p class="text-destructive" *ngIf="isInvalid('motDePasse')">
-              <span *ngIf="loginFormData.get('motDePasse')?.hasError('required')">Required</span>
+              <span *ngIf="loginFormData.get('motDePasse')?.hasError('required')">Champ requis</span>
             </p>
           </div>
 
@@ -65,52 +65,6 @@
           Nouveau ici? <a routerLink="/register" class="font-medium text-primary hover:text-primary/80 transition-colors">Créer un compte</a>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="card w-[320px] p-6 hidden">
-    <h1 class="text-2xl font-bold">Se connecter</h1>
-    <div class="pt-6">
-      <form [formGroup]="loginFormData" (submit)="login($event)">
-        <!-- input email -->
-        <div class="flex flex-col">
-          <label for="email">E-mail</label>
-          <input
-            class="input pl-2"
-            type="text"
-            id="email"
-            name="email"
-            formControlName="email"
-          />
-          <p class="text-destructive" *ngIf="isInvalid('email')">
-            <span *ngIf="loginFormData.get('email')?.hasError('required')">Required</span>
-            <span *ngIf="loginFormData.get('email')?.hasError('email')">E-mail non valide</span>
-          </p>
-        </div>
-        <!-- input mot de passe  -->
-        <div class="flex flex-col pt-4">
-          <label for="motDePasse">Mot de passe</label>
-          <input
-            class="input pl-2"
-            type="text"
-            id="motDePasse"
-            name="motDePasse"
-            formControlName="motDePasse"
-          />
-          <p class="text-destructive" *ngIf="isInvalid('motDePasse')">
-            <span *ngIf="loginFormData.get('motDePasse')?.hasError('required')">Required</span>
-          </p>
-        </div>
-        <!-- credentials invalid  -->
-         <div class="pt-4" *ngIf="invalidCredentials">
-          <p class="text-destructive">E-mail ou mot de passe incorrect</p>
-         </div>
-
-        <!-- button submit -->
-        <div class="pt-4">
-          <button class="button-primary">Se connecter</button>
-        </div>
-      </form>
     </div>
   </div>
 </main>

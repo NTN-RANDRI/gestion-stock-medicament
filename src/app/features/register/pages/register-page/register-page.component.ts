@@ -38,6 +38,8 @@ export class RegisterPageComponent implements OnDestroy {
     if (this.registerFormData.valid) {
       this.registerSubscription = this.registerService.register(this.registerFormData.value as registerModel).subscribe({
         next: _ => {
+          this.registerFormData.reset();
+
           Swal.fire({
             title: "Demande envoyée !",
             text: "Votre demande de création de compte a bien été envoyée. Elle sera examinée par l’administrateur.",

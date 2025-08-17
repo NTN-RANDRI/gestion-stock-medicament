@@ -36,7 +36,7 @@
           <i class="fas fa-capsules absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"></i>
         </div>
         <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('nom')">
-          Ce champ est obligatoire
+          Champ requis
         </p>
       </div>
 
@@ -54,7 +54,7 @@
           <i class="fas fa-align-left absolute top-3 left-3 text-muted-foreground"></i>
         </div>
         <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('description')">
-          Ce champ est obligatoire
+          Champ requis
         </p>
       </div>
 
@@ -73,7 +73,7 @@
           <i class="fas fa-shapes absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"></i>
         </div>
         <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('forme')">
-          Veuillez sélectionner une forme
+          Champ requis
         </p>
       </div>
 
@@ -93,7 +93,7 @@
           <i class="fas fa-flask absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"></i>
         </div>
         <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('dosage')">
-          Ce champ est obligatoire
+          Champ requis
         </p>
       </div>
 
@@ -113,7 +113,7 @@
           <i class="fas fa-tag absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"></i>
         </div>
         <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('prixVente')">
-          Veuillez entrer un prix valide
+          Champ requis
         </p>
       </div>
 
@@ -129,83 +129,7 @@
         <button
           type="submit"
           class="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-opacity-90 transition-colors"
-          [disabled]="medicamentFormData.invalid"
         >
-          {{ selected === null ? "Ajouter" : "Modifier" }}
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div
-  class="absolute top-0 left-0 z-20 flex h-screen w-screen items-center justify-center bg-black/20 hidden"
->
-  <div class="card absolute w-[375px] p-6">
-    <div class="border-b-border border-b pb-2">
-      <p class="text-lg font-semibold">
-        {{ selected === null ? "Ajouter" : "Modifier" }}
-      </p>
-    </div>
-    <div class="pt-4"></div>
-    <form [formGroup]="medicamentFormData" (submit)="submit($event)">
-      <div class="">
-        <label class="text-lg">Nom</label>
-        <input
-          class="input w-full px-2 py-1"
-          type="text"
-          formControlName="nom"
-        />
-        <p class="text-destructive" *ngIf="isInvalid('nom')">
-          <span *ngIf="hasError('nom', 'required')">Required</span>
-        </p>
-      </div>
-      <div class="pt-4">
-        <label class="text-lg">Description</label>
-        <textarea
-          class="input w-full px-2 py-1"
-          formControlName="description"
-        ></textarea>
-        <p class="text-destructive" *ngIf="isInvalid('description')">
-          <span *ngIf="hasError('description', 'required')">Required</span>
-        </p>
-      </div>
-      <div class="pt-4">
-        <label class="text-lg">Forme</label>
-        <app-select-with-search
-          [className]="`w-full px-2 py-1 ${isInvalid('forme') ? 'input-error': 'input'}`"
-          [options]="formes"
-          formControlName="forme"
-        ></app-select-with-search>
-        <p class="text-destructive" *ngIf="isInvalid('forme')">
-          <span *ngIf="hasError('forme', 'required')">Required</span>
-        </p>
-      </div>
-      <div class="pt-4">
-        <label class="text-lg">Dosage</label>
-        <input
-          class="input w-full px-2 py-1"
-          type="text"
-          formControlName="dosage"
-        />
-        <p class="text-destructive" *ngIf="isInvalid('dosage')">
-          <span *ngIf="hasError('dosage', 'required')">Required</span>
-        </p>
-      </div>
-      <div class="pt-4">
-        <label class="text-lg">Prix</label>
-        <input
-          class="input w-full px-2 py-1"
-          type="number"
-          formControlName="prixVente"
-        />
-        <p class="text-destructive" *ngIf="isInvalid('prixVente')">
-          <span *ngIf="hasError('prixVente', 'required')">Required</span>
-        </p>
-      </div>
-      <div class="flex justify-end gap-4 pt-6">
-        <button type="button" class="button-danger" (click)="cancel()">Annuler</button>
-        <button type="submit" class="button-primary">
           {{ selected === null ? "Ajouter" : "Modifier" }}
         </button>
       </div>

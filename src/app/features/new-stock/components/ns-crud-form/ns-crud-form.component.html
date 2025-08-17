@@ -29,14 +29,14 @@
             [className]="`w-full input pl-10 pr-4 py-2 ${isInvalid('nomMedicament') ? 'input-error' : 'input'}`"
             [options]="nomMedicaments"
             formControlName="nomMedicament"
-            placeholder="Rechercher un médicament..."
+            placeholder="Nom medicament..."
           ></app-select-with-search>
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground">
             <i class="fas fa-search"></i>
           </div>
         </div>
         <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('nomMedicament')">
-          <span *ngIf="hasError('nomMedicament', 'required')">Ce champ est obligatoire</span>
+          <span *ngIf="hasError('nomMedicament', 'required')">Champ requis</span>
         </p>
       </div>
 
@@ -57,10 +57,10 @@
             <i class="fas fa-cubes"></i>
           </div>
         </div>
-        <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('quantite')">
-          <span *ngIf="hasError('quantite', 'required')">Ce champ est obligatoire</span>
-          <span *ngIf="hasError('quantite', 'min')">La quantité doit être d'au moins 1</span>
-        </p>
+        <div class="mt-1 text-sm text-destructive" *ngIf="isInvalid('quantite')">
+          <p *ngIf="hasError('quantite', 'required')">Champ requis</p>
+          <p *ngIf="hasError('quantite', 'min')">La quantité doit être d'au moins 1</p>
+        </div>
       </div>
 
       <!-- Prix -->
@@ -80,7 +80,7 @@
           </div>
         </div>
         <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('prixUnitaire')">
-          <span *ngIf="hasError('prixUnitaire', 'required')">Ce champ est obligatoire</span>
+          <span *ngIf="hasError('prixUnitaire', 'required')">Champ requis</span>
         </p>
       </div>
 
@@ -99,10 +99,9 @@
             <i class="fas fa-calendar-day"></i>
           </div>
         </div>
-        <p class="mt-1 text-sm text-destructive" *ngIf="isInvalid('datePeremptionMedicament')">
-          <span *ngIf="hasError('datePeremptionMedicament', 'required')">Ce champ est obligatoire</span>
-          <span *ngIf="hasError('datePeremptionMedicament', 'required')">Attention : date déjà expirée</span>
-        </p>
+        <div class="mt-1 text-sm text-destructive" *ngIf="isInvalid('datePeremptionMedicament')">
+          <p *ngIf="hasError('datePeremptionMedicament', 'required')">Champ requis</p>
+        </div>
       </div>
 
       <!-- Actions -->
@@ -117,7 +116,6 @@
         <button
           type="submit"
           class="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-opacity-90 transition-colors"
-          [disabled]="medicamentFormData.invalid"
         >
           {{ selected === null ? 'Ajouter' : 'Modifier' }}
         </button>

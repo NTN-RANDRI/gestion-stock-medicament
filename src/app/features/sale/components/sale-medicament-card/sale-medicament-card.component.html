@@ -55,7 +55,7 @@
           [max]="medicament.quantite"
         />
         <p class="text-destructive text-sm mt-1 h-5" *ngIf="quantite.invalid && quantite.touched">
-          <span *ngIf="quantite.hasError('required')">Champ obligatoire</span>
+          <span *ngIf="quantite.hasError('required')">Champ requis</span>
           <span *ngIf="quantite.hasError('min')">Minimum 1 unité</span>
           <span *ngIf="quantite.hasError('max')">
             Stock insuffisant (max: {{ medicament.quantite }})

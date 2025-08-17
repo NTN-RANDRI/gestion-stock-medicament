@@ -25,9 +25,9 @@ export class NsCrudFormComponent implements OnInit, OnDestroy {
     this._selected = value;
 
     this.medicamentFormData = new FormGroup({
-      quantite: new FormControl(value?.quantite || 1, [Validators.required, Validators.min(1)]),
+      quantite: new FormControl(value?.quantite || '', [Validators.required, Validators.min(1)]),
       datePeremptionMedicament: new FormControl(value?.datePeremptionMedicament || '', [Validators.required]),
-      prixUnitaire: new FormControl(value?.prixUnitaire || 0, [Validators.required]),
+      prixUnitaire: new FormControl(value?.prixUnitaire || '', [Validators.required]),
       nomMedicament: new FormControl(value?.nomMedicament || '', [Validators.required]),
     });
 

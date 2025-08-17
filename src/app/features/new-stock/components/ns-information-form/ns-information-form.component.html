@@ -34,7 +34,7 @@
           </div>
         </div>
         <p class="mt-1 text-sm text-destructive" *ngIf="fournisseur.invalid && (fournisseur.dirty || fournisseur.touched)">
-          <span *ngIf="fournisseur.invalid && (fournisseur.dirty || fournisseur.touched)">Ce champ est obligatoire</span>
+          <span *ngIf="fournisseur.invalid && (fournisseur.dirty || fournisseur.touched)">Champ requis</span>
         </p>
         <!-- <p *ngIf="fournisseur.value" class="mt-1 text-sm text-green-600">
           Sélectionné : {{ fournisseur.value }}
@@ -58,7 +58,7 @@
           </div>
         </div>
         <p class="mt-1 text-sm text-destructive" *ngIf="motif.invalid && (motif.dirty || motif.touched)">
-          <span *ngIf="motif.invalid && (motif.dirty || motif.touched)">Ce champ est obligatoire</span>
+          <span *ngIf="motif.invalid && (motif.dirty || motif.touched)">Champ requis</span>
         </p>
       </div>
     </div>

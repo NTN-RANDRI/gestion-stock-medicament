@@ -15,7 +15,7 @@
           <input
             class="input w-full pl-10 pr-4 py-2"
             type="text"
-            placeholder="Rechercher un médicament..."
+            placeholder="Rechercher un utilisateur..."
             [(ngModel)]="userService.search"
           />
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground">
@@ -131,13 +131,13 @@
                 >
                   <i class="fa-solid fa-check"></i>
                 </button>
-                <button
+                <!-- <button
                   class="action-btn rounded-lg bg-red-100 px-2 py-0.5 text-red-700 hover:bg-red-200"
                   title="Rejeter"
                   (click)="refuser(user.id)"
                 >
                   <i class="fa-solid fa-xmark"></i>
-                </button>
+                </button> -->
               </ng-content>
             </td>
           </tr>

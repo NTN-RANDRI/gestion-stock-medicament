@@ -98,7 +98,6 @@
   <!-- Formulaire de création/édition -->
   <div *ngIf="selectedMedicament !== undefined">
     <app-medicament-form
-      [formes]="formes"
       [selected]="selectedMedicament"
       (cancelEvent)="selectedMedicament = undefined"
       (addEvent)="addMedicament($event)"
@@ -113,58 +112,4 @@
       (deleteEvent)="deleteMedicament()"
     ></app-delete-modal>
   </div>
-</div>
-
-<div class="p-8 hidden">
-  <div>
-    <h1 class="text-foreground text-2xl font-medium">Gestion médicaments</h1>
-    <p class="text-muted-foreground">Bla bla</p>
-  </div>
-
-  <div class="pt-6">
-    <div class="flex items-center justify-between">
-      <div class="flex gap-4">
-        <input
-          class="input w-[300px] px-2 py-1"
-          type="text"
-          placeholder="Recherche..."
-          [(ngModel)]="medicamentService.search"
-        />
-        <app-select-with-search
-          [className]="'input py-1 px-2'"
-          [placeholder]="'forme...'"
-          [options]="formes"
-          [(ngModel)]="medicamentService.formeSearch"
-        ></app-select-with-search>
-      </div>
-      <div>
-        <button class="button-success" (click)="selectedMedicament = null">
-          <i class="fa-solid fa-plus mr-2"></i>Ajouter
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div class="pt-6">
-    <app-medicament-list
-      [medicaments]="medicaments"
-      (editEvent)="setSelectedMedicament($event)"
-      (deleteEvent)="setDeleteSelectedMedicament($event)"
-    ></app-medicament-list>
-  </div>
-
-  <div *ngIf="selectedMedicament !== undefined">
-    <app-medicament-form
-      [formes]="formes"
-      [selected]="selectedMedicament"
-      (cancelEvent)="selectedMedicament = undefined"
-      (addEvent)="addMedicament($event)"
-      (editEvent)="editMedicament($event)"
-    ></app-medicament-form>
-  </div>
-
-  <div *ngIf="deleteSelectedMedicament !== undefined">
-    <app-delete-modal (cancelEvent)="deleteSelectedMedicament = undefined" (deleteEvent)="deleteMedicament()"></app-delete-modal>
-  </div>
-
 </div>

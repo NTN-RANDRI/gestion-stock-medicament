@@ -9,6 +9,7 @@ import { MedicamentFormComponent } from "../../components/medicament-form/medica
 import { DeleteModalComponent } from "../../../../components/delete-modal/delete-modal.component";
 import { FormsModule } from '@angular/forms';
 import { Toast } from '@/app/librairie/sweetalert2/toast';
+import { formesDefault } from '@/app/core/utils/forme';
 
 @Component({
   selector: 'app-medicament-page',
@@ -20,12 +21,14 @@ export class MedicamentPageComponent implements OnInit, OnDestroy {
   protected selectedMedicament: MedicamentModel | null | undefined = undefined;
   protected deleteSelectedMedicament: MedicamentModel | undefined = undefined;
 
-  protected formes: string[] = ['Comprimé', 'Liquide', 'Gélule', 'Crème', 'Injectable'];
-
   protected medicamentService = inject(MedicamentService);
 
   get medicaments(): MedicamentModel[] {
     return this.medicamentService.medicamentsFiltered();
+  }
+
+  get formes(): string[] {
+    return formesDefault;
   }
 
   protected addMedicament(data: MedicamentModel) {

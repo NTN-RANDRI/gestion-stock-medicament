@@ -13,7 +13,7 @@ export class UtilisateurService {
 
   public search = signal<string>('');
   public roleSearch = signal<string>('tous');
-  public etatSearch = signal<string>('tous');
+  public etatSearch = signal<string>('attente');
 
   private apiUtilisateur = inject(ApiUserService);
   private apiAuth = inject(ApiAuthService);
