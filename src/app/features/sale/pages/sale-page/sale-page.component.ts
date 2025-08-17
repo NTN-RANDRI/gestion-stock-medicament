@@ -18,7 +18,8 @@ import { ProfileComponent } from "@/app/components/profile/profile.component";
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    ProfileComponent
+    ProfileComponent,
+    SaleCartComponent
 ],
   templateUrl: './sale-page.component.html',
   styleUrl: './sale-page.component.css',
