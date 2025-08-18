@@ -16,8 +16,13 @@ import { adminGuard } from './features/admin/guards/admin.guard';
 import { saleGuard } from './features/sale/guards/sale.guard';
 import { gsGuard } from './features/gestion-stock/guards/gs.guard';
 import { UnauthorizedPageComponent } from './core/components/unauthorized-page/unauthorized-page.component';
+import { AccueilPageComponent } from './features/accueil/pages/accueil-page/accueil-page.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    component: AccueilPageComponent
+  },
   {
     path: 'unauthorized',
     component: UnauthorizedPageComponent

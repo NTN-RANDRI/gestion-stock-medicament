@@ -1,0 +1,233 @@
+<div class="min-h-screen flex flex-col">
+  <header class="py-4 px-6 sm:px-8 lg:px-10 border-b border-border">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <h1 class="text-2xl font-bold">
+            <span class="bg-primary text-white px-3 py-1 rounded-lg">PHARMA</span>
+            <span class="text-green-600">STOCK</span>
+        </h1>
+
+        <div class="flex items-center gap-4">
+            <a routerLink="login" class="ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                Se connecter
+            </a>
+        </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+      <!-- Hero -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
+          <div class="md:flex md:items-center md:justify-between">
+              <div class="md:w-1/2">
+                  <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+                      Gestion de stock <span class="text-primary">optimisée</span> pour pharmacies
+                  </h1>
+                  <p class="mt-6 text-lg text-muted-foreground">
+                      PharmaStock simplifie la gestion de vos médicaments avec un suivi en temps réel, des alertes d'expiration et des outils puissants pour optimiser vos stocks.
+                  </p>
+                  <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                      <a href="/register" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-blue-700">
+                          Commencer gratuitement
+                      </a>
+                  </div>
+              </div>
+              <div class="mt-12 md:mt-0 md:w-1/2">
+                  <div class="relative">
+                      <div class="absolute inset-0 bg-accent rounded-2xl transform rotate-1"></div>
+                      <div class="relative bg-white rounded-2xl shadow-xl overflow-hidden">
+                          <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80" alt="Dashboard PharmaStock" class="w-full h-auto">
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Features -->
+      <div class="bg-secondary py-12">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div class="text-center">
+                  <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
+                      Fonctionnalités clés
+                  </h2>
+                  <p class="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+                      Découvrez comment PharmaStock peut transformer votre gestion de stock
+                  </p>
+              </div>
+
+              <div class="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
+                  <div class="bg-white p-6 rounded-lg shadow-sm">
+                      <div class="w-12 h-12 rounded-lg bg-accent text-accent-foreground flex items-center justify-center mb-4">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                          </svg>
+                      </div>
+                      <h3 class="text-lg font-bold mb-2">Suivi en temps réel</h3>
+                      <p class="text-muted-foreground">
+                          Visualisez l'état de votre stock en direct avec des indicateurs clairs et des graphiques intuitifs.
+                      </p>
+                  </div>
+
+                  <div class="bg-white p-6 rounded-lg shadow-sm">
+                      <div class="w-12 h-12 rounded-lg bg-accent text-accent-foreground flex items-center justify-center mb-4">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                      </div>
+                      <h3 class="text-lg font-bold mb-2">Alertes d'expiration</h3>
+                      <p class="text-muted-foreground">
+                          Recevez des notifications pour les médicaments approchant de leur date de péremption.
+                      </p>
+                  </div>
+
+                  <div class="bg-white p-6 rounded-lg shadow-sm">
+                      <div class="w-12 h-12 rounded-lg bg-accent text-accent-foreground flex items-center justify-center mb-4">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                          </svg>
+                      </div>
+                      <h3 class="text-lg font-bold mb-2">Gestion des commandes</h3>
+                      <p class="text-muted-foreground">
+                          Gérez facilement vos commandes auprès des fournisseurs avec suivi des livraisons.
+                      </p>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Testimonials -->
+      <div class="py-12 bg-white">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div class="text-center">
+                  <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
+                      Ils nous font confiance
+                  </h2>
+              </div>
+
+              <div class="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
+                  <div class="p-6 border border-border rounded-lg">
+                      <div class="flex items-center mb-4">
+                          <div class="w-10 h-10 rounded-full bg-accent text-accent-foreground flex items-center justify-center mr-3">
+                              <span class="text-sm font-medium">JD</span>
+                          </div>
+                          <div>
+                              <h4 class="font-medium">Dr. Jean Dupont</h4>
+                              <p class="text-sm text-muted-foreground">Pharmacie du Centre</p>
+                          </div>
+                      </div>
+                      <p class="text-muted-foreground">
+                          "PharmaStock a révolutionné notre gestion de stock. Les alertes d'expiration nous ont permis de réduire nos pertes de 30%."
+                      </p>
+                  </div>
+
+                  <div class="p-6 border border-border rounded-lg">
+                      <div class="flex items-center mb-4">
+                          <div class="w-10 h-10 rounded-full bg-accent text-accent-foreground flex items-center justify-center mr-3">
+                              <span class="text-sm font-medium">ML</span>
+                          </div>
+                          <div>
+                              <h4 class="font-medium">Marie Lambert</h4>
+                              <p class="text-sm text-muted-foreground">Pharmacie Lambert</p>
+                          </div>
+                      </div>
+                      <p class="text-muted-foreground">
+                          "L'interface est intuitive et le suivi des commandes est un gain de temps considérable. Je recommande vivement."
+                      </p>
+                  </div>
+
+                  <div class="p-6 border border-border rounded-lg">
+                      <div class="flex items-center mb-4">
+                          <div class="w-10 h-10 rounded-full bg-accent text-accent-foreground flex items-center justify-center mr-3">
+                              <span class="text-sm font-medium">PT</span>
+                          </div>
+                          <div>
+                              <h4 class="font-medium">Pierre Thibault</h4>
+                              <p class="text-sm text-muted-foreground">Pharmacie Thibault</p>
+                          </div>
+                      </div>
+                      <p class="text-muted-foreground">
+                          "Depuis que nous utilisons PharmaStock, nous n'avons plus jamais eu de rupture de stock sur nos médicaments essentiels."
+                      </p>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="bg-primary py-12">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+              <h2 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+                  Prêt à optimiser votre gestion de stock ?
+              </h2>
+              <p class="mt-4 text-lg text-blue-100">
+                  Essayez PharmaStock gratuitement pendant 14 jours. Aucune carte de crédit requise.
+              </p>
+              <div class="mt-8">
+                  <a routerLink="/register" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-primary bg-white hover:bg-blue-50">
+                      Commencer maintenant
+                  </a>
+              </div>
+          </div>
+      </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-border">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div>
+                  <h3 class="text-sm font-semibold text-muted-foreground tracking-wider uppercase">Produit</h3>
+                  <ul class="mt-4 space-y-2">
+                      <li><a href="#" class="text-sm text-muted-foreground hover:text-primary">Fonctionnalités</a></li>
+                      <li><a href="#" class="text-sm text-muted-foreground hover:text-primary">Tarifs</a></li>
+                      <li><a href="#" class="text-sm text-muted-foreground hover:text-primary">FAQ</a></li>
+                  </ul>
+              </div>
+
+              <div>
+                  <h3 class="text-sm font-semibold text-muted-foreground tracking-wider uppercase">Entreprise</h3>
+                  <ul class="mt-4 space-y-2">
+                      <li><a href="#" class="text-sm text-muted-foreground hover:text-primary">À propos</a></li>
+                      <li><a href="#" class="text-sm text-muted-foreground hover:text-primary">Blog</a></li>
+                  </ul>
+              </div>
+
+              <div>
+                  <h3 class="text-sm font-semibold text-muted-foreground tracking-wider uppercase">Légal</h3>
+                  <ul class="mt-4 space-y-2">
+                      <li><a href="#" class="text-sm text-muted-foreground hover:text-primary">Confidentialité</a></li>
+                      <li><a href="#" class="text-sm text-muted-foreground hover:text-primary">Mentions légales</a></li>
+                  </ul>
+              </div>
+
+              <div>
+                  <h3 class="text-sm font-semibold text-muted-foreground tracking-wider uppercase">Contact</h3>
+                  <ul class="mt-4 space-y-2">
+                      <li><a href="#" class="text-sm text-muted-foreground hover:text-primary">+261 34 26 650 14</a></li>
+                      <li><a href="#" class="text-sm text-muted-foreground hover:text-primary">{{ email }}</a></li>
+                  </ul>
+              </div>
+          </div>
+
+          <div class="mt-12 border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center">
+              <p class="text-sm text-muted-foreground">
+                  &copy; 2025 PharmaStock. Tous droits réservés.
+              </p>
+              <div class="mt-4 md:mt-0 flex space-x-6">
+                  <a href="#" class="text-muted-foreground hover:text-primary">
+                      <span class="sr-only">Facebook</span>
+                      <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+                      </svg>
+                  </a>
+                  <a href="#" class="text-muted-foreground hover:text-primary">
+                      <span class="sr-only">LinkedIn</span>
+                      <svg class="h-6 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                      </svg>
+                  </a>
+              </div>
+          </div>
+      </div>
+  </footer>
+</div>

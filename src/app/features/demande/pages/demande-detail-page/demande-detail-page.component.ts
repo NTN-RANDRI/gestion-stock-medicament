@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DemandeModel } from '../../models/demande.model';
 import { LignesDemandeModel } from '../../models/lignes-demande.model';
@@ -20,7 +20,8 @@ export class DemandeDetailPageComponent implements OnInit, OnDestroy {
   protected showConfirmModal = false;
   protected showRefusModal = false;
 
-  private route = inject(ActivatedRoute);
+  private route = inject(Router)
+  private activateRoute = inject(ActivatedRoute);
   private demandeDetailService = inject(DemandeDetailService);
 
   get demande(): DemandeModel | null {
@@ -40,6 +41,8 @@ export class DemandeDetailPageComponent implements OnInit, OnDestroy {
           icon: "success",
           draggable: true
         });
+        this.route.navigate(['/gestion-stock/demande']);
+
       }
     });
   }
@@ -54,11 +57,12 @@ export class DemandeDetailPageComponent implements OnInit, OnDestroy {
           icon: "success",
           draggable: true
         });
+        this.route.navigate(['/gestion-stock/demande']);
       }
     });
   }
 
-  textStatut(statut: string): string {
+  protected textStatut(statut: string): string {
     switch (statut) {
       case 'EnAttente':
         return 'En attente';
@@ -71,7 +75,7 @@ export class DemandeDetailPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  couleurStatut(statut: string): string {
+  protected couleurStatut(statut: string): string {
     switch (statut) {
       case 'EnAttente':
         return 'bg-yellow-100 text-yellow-800';
@@ -85,7 +89,7 @@ export class DemandeDetailPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const demandeId = Number(this.route.snapshot.paramMap.get('id'));
+    const demandeId = Number(this.activateRoute.snapshot.paramMap.get('id'));
     this.loadDemandeByIdSubscription = this.demandeDetailService.loadDemandeById(demandeId).subscribe();
   }
 
